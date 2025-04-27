@@ -9,36 +9,7 @@ import {
   Avatar,
 } from "@mui/material";
 import React from "react";
-
-const name = { name: { label: "Rachmad Alif Firdaus", url: "/" } };
-const references = [
-  { label: "resume.json", url: "/resume.json" },
-  { label: "projects.json", url: "/projects.json" },
-];
-const link = {
-  resume: { label: "/resume", url: "/resume" },
-  github: {
-    label: "/muslimmuda15",
-    url: "https://rachmadalif.github.io/projects",
-  },
-  linkedin: {
-    label: "/rachmad-alif-firdaus",
-    url: "www.linkedin.com/in/rachmad-alif-firdaus",
-  },
-};
-const me = {
-  summary: "Web and mobile developer",
-  currently: "Working as a Software and AI Engineer",
-  at: "PT Garasilabs Kolektif Teknologi",
-  "studying at": "Institut Teknologi Adhi Tama Surabaya",
-  "I enjoy": [
-    "Coding",
-    "Gaming",
-    "Playing badminton",
-    "Learning new things about technology",
-  ],
-  "contact me at": "muslimmuda15@gmail.com",
-};
+import { link, me, name, references } from "@/app/constant/data";
 
 const HomePage = () => {
   return (

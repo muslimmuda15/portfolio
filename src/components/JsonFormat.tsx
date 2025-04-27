@@ -43,7 +43,7 @@ const formatJsonValue = (value: any): React.ReactElement => {
         return (
           <a
             href={value.url}
-            target="_blank"
+            target="_self"
             rel="noopener noreferrer"
             style={{ color: jsonColors.string, textDecoration: "underline" }}
           >
