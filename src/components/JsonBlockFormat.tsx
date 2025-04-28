@@ -25,7 +25,7 @@ const isValidJson = (text: string): boolean => {
   }
 };
 
-const formatJsonValue = (value: any): React.ReactElement => {
+const formatJsonValue = (value: any, depth: number = 0): React.ReactElement => {
   if (value === null) {
     return <span style={{ color: jsonColors.null }}>null</span>;
   }
@@ -51,98 +51,78 @@ const formatJsonValue = (value: any): React.ReactElement => {
           </a>
         );
       }
-      return <JsonContent value={value} />;
+      return <JsonContent value={value} depth={depth} />;
     default:
       return <span>{String(value)}</span>;
   }
 };
 
-const JsonContent = ({ value }: { value: any }) => {
+const JsonContent = ({ value, depth = 0 }: { value: any; depth?: number }) => {
   const isArray = Array.isArray(value);
   const bracketColor = { color: jsonColors.bracket };
   const entries = isArray ? value : Object.entries(value);
-  const shouldNewline = !isArray && entries.length > 1;
+  const indent = "  ".repeat(depth);
+  const nestedIndent = "  ".repeat(depth + 1);
 
   if (isArray) {
-    // Special handling for arrays of strings
     const isStringArray = value.every((item: any) => typeof item === "string");
 
-    if (isStringArray && value.length > 1) {
-      return (
-        <Box component="span" sx={{ display: "inline" }}>
-          <span style={bracketColor}>[ </span>
-          <br />
-          {value.map((item: string, index: number) => (
-            <React.Fragment key={index}>
-              <span style={{ marginLeft: "4ch" }} />
-              {formatJsonValue(item)}
-              {index < value.length - 1 && (
-                <>
-                  <span style={bracketColor}>,</span>
-                  <br />
-                </>
-              )}
-            </React.Fragment>
-          ))}
-          <br />
-          <span style={bracketColor}> ]</span>
-        </Box>
-      );
-    }
-
-    // Default array handling for non-string arrays
     return (
       <Box component="span" sx={{ display: "inline" }}>
-        <span style={bracketColor}>[ </span>
-        {value.map((item, index) => (
+        <span style={bracketColor}>[</span>
+        <br />
+        {value.map((item: any, index: number) => (
           <React.Fragment key={index}>
-            {formatJsonValue(item)}
-            {index < value.length - 1 && <span style={bracketColor}>, </span>}
+            <span>{nestedIndent}</span>
+            {formatJsonValue(item, depth + 1)}
+            {index < value.length - 1 && (
+              <>
+                <span style={bracketColor}>,</span>
+                <br />
+              </>
+            )}
           </React.Fragment>
         ))}
-        <span style={bracketColor}> ]</span>
+        <br />
+        <span>{indent}</span>
+        <span style={bracketColor}>]</span>
       </Box>
     );
   }
 
-  const isSingleKey = !isArray && Object.keys(value).length === 1;
-
   return (
     <Box component="span" sx={{ display: "inline" }}>
       <span style={bracketColor}>{"{"}</span>
-      {!isSingleKey && shouldNewline && <br />}
+      <br />
       {Object.entries(value).map(([key, val], index, arr) => (
         <React.Fragment key={key}>
-          {!isSingleKey && shouldNewline && (
-            <span style={{ marginLeft: "2ch" }} />
-          )}
-          {isSingleKey && " "}
+          <span>{nestedIndent}</span>
           <span style={{ color: jsonColors.key }}>"{key}"</span>
           <span style={bracketColor}>: </span>
-          {formatJsonValue(val)}
+          {formatJsonValue(val, depth + 1)}
           {index < arr.length - 1 && (
             <>
               <span style={bracketColor}>,</span>
-              {shouldNewline && <br />}
+              <br />
             </>
           )}
         </React.Fragment>
       ))}
-      {!isSingleKey && shouldNewline && <br />}
-      {isSingleKey && " "}
+      <br />
+      <span>{indent}</span>
       <span style={bracketColor}>{"}"}</span>
     </Box>
   );
 };
 
-export default function JsonFormat({ value: text }: JsonFormatProps) {
+export default function JsonBlockFormat({ value: text }: JsonFormatProps) {
   const formattedContent = useMemo(() => {
     if (!isValidJson(text)) {
       return text;
     }
 
     const parsedJson = JSON.parse(text);
-    return formatJsonValue(parsedJson);
+    return formatJsonValue(parsedJson, 0);
   }, [text]);
 
   return (
@@ -150,7 +130,7 @@ export default function JsonFormat({ value: text }: JsonFormatProps) {
       sx={{
         fontFamily: "monospace",
         whiteSpace: "pre-wrap",
-        color: "#D4D4D4", // Light text
+        color: "#D4D4D4",
         borderRadius: 1,
       }}
     >

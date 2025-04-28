@@ -1,4 +1,3 @@
-import JsonFormat from "@/components/JsonFormat";
 import {
   Box,
   Typography,
@@ -10,6 +9,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import { link, me, name, references } from "@/app/constant/data";
+import JsonInlineFormat from "@/components/JsonInlineFormat";
+import JsonBlockFormat from "@/components/JsonBlockFormat";
 
 const HomePage = () => {
   return (
@@ -18,11 +19,11 @@ const HomePage = () => {
         <Box sx={{ p: 1, px: 2 }}>
           <Stack direction="row" spacing={2} justifyContent="space-between">
             <Typography variant="h5" component="h1">
-              <JsonFormat value={JSON.stringify(name)} />
+              <JsonInlineFormat value={JSON.stringify(name)} />
             </Typography>
             <Stack direction="row" spacing={2}>
               <Typography variant="h5" component="h1">
-                <JsonFormat value={`${JSON.stringify(references)}`} />
+                <JsonInlineFormat value={`${JSON.stringify(references)}`} />
               </Typography>
             </Stack>
           </Stack>
@@ -30,7 +31,13 @@ const HomePage = () => {
         <Divider />
         <Box sx={{ p: 2, px: 2 }}>
           <Grid container direction="row">
-            <Grid container spacing={4} size={5} sx={{ px: 4 }}>
+            <Grid
+              container
+              direction="column"
+              spacing={4}
+              size={4}
+              sx={{ px: 4 }}
+            >
               <Avatar
                 src="/photo.jpg"
                 alt={name.name.label}
@@ -42,12 +49,12 @@ const HomePage = () => {
                 }}
               />
               <Typography variant="h5" component="h1">
-                <JsonFormat value={`${JSON.stringify(link)}`} />
+                <JsonBlockFormat value={`${JSON.stringify(link)}`} />
               </Typography>
             </Grid>
-            <Grid size={7}>
+            <Grid size={8}>
               <Typography variant="h5" component="h1">
-                <JsonFormat value={`${JSON.stringify(me)}`} />
+                <JsonBlockFormat value={`${JSON.stringify(me)}`} />
               </Typography>
             </Grid>
           </Grid>

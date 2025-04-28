@@ -1,9 +1,9 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
-import { name, references, resume } from "@/app/constant/data";
 import JsonInlineFormat from "@/components/JsonInlineFormat";
+import { Box, Divider, Stack, Typography } from "@mui/material";
+import { experience, name, references } from "../constant/data";
 import JsonBlockFormat from "@/components/JsonBlockFormat";
 
-export default function ResumePage() {
+export default function Experience() {
   return (
     <Box sx={{ p: 2 }}>
       <Stack direction="column" spacing={2}>
@@ -30,7 +30,7 @@ export default function ResumePage() {
           }}
         >
           <Typography variant="h5" component="h1" sx={{ maxWidth: "1200px" }}>
-            <JsonBlockFormat value={`${JSON.stringify(resume)}`} />
+            <JsonBlockFormat value={`${JSON.stringify(experience)}`} />
           </Typography>
         </Box>
       </Stack>
