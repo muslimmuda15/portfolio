@@ -28,10 +28,49 @@ export const theme = createTheme({
       key: "#82D2CE",
       value: "#E394DC",
       bracket: "#FFFF00",
-      array: "#E394DC"
-    }
+      array: "#E394DC",
+    },
   },
   typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: "monospace",
+    h1: {
+      fontFamily: "monospace",
+    },
+    h2: {
+      fontFamily: "monospace",
+    },
+    h3: {
+      fontFamily: "monospace",
+    },
+    h4: {
+      fontFamily: "monospace",
+    },
+    h5: {
+      fontFamily: "monospace",
+    },
+    h6: {
+      fontFamily: "monospace",
+    },
+    subtitle1: {
+      fontFamily: "monospace",
+    },
+    subtitle2: {
+      fontFamily: "monospace",
+    },
+    body1: {
+      fontFamily: "monospace",
+    },
+    body2: {
+      fontFamily: "monospace",
+    },
+    button: {
+      fontFamily: "monospace",
+    },
+    caption: {
+      fontFamily: "monospace",
+    },
+    overline: {
+      fontFamily: "monospace",
+    },
   },
 });

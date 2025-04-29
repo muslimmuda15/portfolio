@@ -25,11 +25,11 @@ export default function Experience() {
             p: 2,
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "flex-start",
             minHeight: "100vh",
           }}
         >
-          <Typography variant="h5" component="h1" sx={{ maxWidth: "1200px" }}>
+          <Typography variant="h5" component="h1" sx={{ width: "1200px" }}>
             <JsonBlockFormat value={`${JSON.stringify(experience)}`} />
           </Typography>
         </Box>

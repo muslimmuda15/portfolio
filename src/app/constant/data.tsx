@@ -66,135 +66,128 @@ export const resume = {
 
 export const experience = [
   {
-    name: "PT Garasilabs Kolektif Teknologi",
-    position: "Software and AI Engineer",
-    location: "Surabaya, Indonesia",
-    year: "February 2017 - Present",
-    description:
-      "PT Garasilabs Kolektif Teknologi, a software house specializing in custom software solutions, I contributed to various projects as a frontend developer. My job is developing and maintaining software and AI applications for the company.",
-    app_name: [
-      {
-        name: "Sightseeing web application",
-        description:
-          "A web application for discovering and booking tourist destinations in the world, featuring direct payment integration for seamless travel planning.",
-        url: "#",
-        tech_stack: [
-          "HTML",
-          "JavaScript",
-          "SASS",
-          "Node.js",
-          "Express",
-          "JQuery",
-          "Rest API",
-          "Git",
-        ],
-      },
-      {
-        name: "Appety",
-        description:
-          "A comprehensive food and drink service platform enabling direct menu ordering and restaurant reservations across Singapore, Malaysia, and Indonesia. Features include real-time ordering system, table reservation management, and integrated online payment solutions.",
-        url: "#",
-        tech_stack: [
-          "React",
-          "Material UI",
-          "Android",
-          "iOS",
-          "Kotlin",
-          "React Native",
-          "Firebase",
-          "Nodejs",
-          "Express",
-          "Rest API",
-          "Graphql",
-          "Git",
-        ],
-      },
-      {
-        name: "Trampil",
-        description:
-          "A comprehensive vessel booking platform specializing in LCT (Landing Craft Tank) and Cargo ships for large-scale shipping operations. Features include real-time negotiation system between vessel owners and charterers, live booking monitoring, and integrated order processing after successful negotiations. The platform streamlines the entire vessel chartering process from initial inquiry to final booking confirmation.",
-        url: "#",
-        tech_stack: [
-          "React",
-          "Material UI",
-          "Node.js",
-          "Express",
-          "Graphql",
-          "Git",
-        ],
-      },
-      {
-        name: "Atendi",
-        description:
-          "A comprehensive employee attendance and work management system. Features include employee data management, automated scheduling, leave and holiday determine, real-time company performance metrics, and daily bulletin updates. The platform offers advanced functionalities such as check-in/check-out capabilities, visit tracking, employee location monitoring for remote work, and an integrated employee communication system. This all-in-one solution enhances workplace efficiency and employee engagement while providing attendance management tools.",
-        url: "https://www.atendi.co/",
-        tech_stack: [
-          "React",
-          "React Native",
-          "iOS",
-          "Firebase",
-          "Material UI",
-          "Node.js",
-          "Express",
-          "Graphql",
-          "Git",
-        ],
-      },
-      {
-        name: "Single Sign-On SIAKAD Online Poltekes",
-        description:
-          "Create a single sign-on system for Poltekes surabaya. The system allows users to access multiple applications using a single set of credentials.",
-        url: "#",
-        tech_stack: ["Keyclock", "Storybook", "Node.js", "Git"],
-      },
-    ],
+    "PT Garasilabs Kolektif Teknologi": {
+      position: "Software and AI Engineer",
+      location: "Surabaya, Indonesia",
+      year: "February 2017 - Present",
+      description:
+        "PT Garasilabs Kolektif Teknologi, a software house specializing in custom software solutions, I contributed to various projects as a frontend developer. My job is developing and maintaining software and AI applications for the company.",
+      app_name: [
+        {
+          name: "Sightseeing web application",
+          description:
+            "A web application for discovering and booking tourist destinations in the world, featuring direct payment integration for seamless travel planning.",
+          url: "#",
+          tech_stack: [
+            "HTML",
+            "JavaScript",
+            "SASS",
+            "Node.js",
+            "Express",
+            "JQuery",
+            "Rest API",
+          ],
+        },
+        {
+          name: "Appety",
+          description:
+            "A comprehensive food and drink service platform enabling direct menu ordering and restaurant reservations across Singapore, Malaysia, and Indonesia. Features include real-time ordering system, table reservation management, and integrated online payment solutions.",
+          url: "#",
+          tech_stack: [
+            "React",
+            "Material UI",
+            "Android",
+            "iOS",
+            "Kotlin",
+            "React Native",
+            "Firebase",
+            "Nodejs",
+            "Express",
+            "Rest API",
+            "Graphql",
+          ],
+        },
+        {
+          name: "Trampil",
+          description:
+            "A comprehensive vessel booking platform specializing in LCT (Landing Craft Tank) and Cargo ships for large-scale shipping operations. Features include real-time negotiation system between vessel owners and charterers, live booking monitoring, and integrated order processing after successful negotiations. The platform streamlines the entire vessel chartering process from initial inquiry to final booking confirmation.",
+          url: "#",
+          tech_stack: ["React", "Material UI", "Node.js", "Express", "Graphql"],
+        },
+        {
+          name: "Atendi",
+          description:
+            "A comprehensive employee attendance and work management system. Features include employee data management, the system consists of scheduling, leave and holiday determine, real-time company performance metrics, and daily bulletin updates. The platform offers advanced functionalities such as check-in/check-out capabilities, visit tracking, employee location monitoring for remote work, and an integrated employee communication system. This all-in-one solution enhances workplace efficiency and employee engagement while providing attendance management tools.",
+          url: "https://www.atendi.co/",
+          tech_stack: [
+            "React",
+            "React Native",
+            "iOS",
+            "Firebase",
+            "Material UI",
+            "Node.js",
+            "Express",
+            "Graphql",
+          ],
+        },
+        {
+          name: "Single Sign-On SIAKAD Online Poltekes",
+          description:
+            "Create a single sign-on system for Poltekes surabaya. The system allows users to access multiple applications using a single set of credentials.",
+          url: "#",
+          tech_stack: ["Keyclock", "Storybook", "Node.js"],
+        },
+      ],
+    },
   },
   {
-    name: "Freelance Android Development",
-    position: "Freelance",
-    location: "Remote",
-    year: "August 2021 - January 2025",
-    description:
-      "Freelance android developer, I have developed various android applications for clients.",
-    app_name: [
-      {
-        name: "Smart AutoClicker",
-        description:
-          "Modified an open-source application (Klick'r, formerly Smart AutoClicker) according to client requirements. The application is designed to automate repetitive tasks through image detection and auto-clicking functionalities, serving various use cases from gaming automation to testing and general task automation. Enhanced and customized features for sophisticated automation while maintaining the application's core functionality for both image-based detection and regular auto-clicking modes.",
-        url: "#",
-        tech_stack: ["Kotlin"],
-      },
-      {
-        name: "Revinz",
-        description:
-          "A document scanning application with automatic edge detection and cropping capabilities for both camera capture and gallery images. Implemented advanced image processing features including contrast adjustment, brightness control, grayscale conversion, and threshold settings to enhance document visibility. Integrated OCR (Optical Character Recognition) functionality for text extraction from scanned documents.",
-        url: "#",
-        tech_stack: ["Kotlin", "Google OCR"],
-      },
-      {
-        name: "Pan Esge",
-        description:
-          "Data collection of elementary and junior high school teachers and students across public schools in Surabaya from Pan Esge",
-        url: "#",
-        tech_stack: ["Visual Basic", "Microsoft Access"],
-      },
-    ],
+    Freelance: {
+      position: "Development",
+      location: "Remote",
+      year: "August 2021 - January 2025",
+      description:
+        "Freelance android developer, I have developed various android applications for clients.",
+      app_name: [
+        {
+          name: "Smart AutoClicker",
+          description:
+            "Modified an open-source application (Klick'r, formerly Smart AutoClicker) according to client requirements. The application is designed to automate repetitive tasks through image detection and auto-clicking functionalities, serving various use cases from gaming automation to testing and general task automation. Enhanced and customized features for sophisticated automation while maintaining the application's core functionality for both image-based detection and regular auto-clicking modes.",
+          url: "#",
+          tech_stack: ["Kotlin"],
+        },
+        {
+          name: "Revinz",
+          description:
+            "A document scanning application with automatic edge detection and cropping capabilities for both camera capture and gallery images. Implemented advanced image processing features including contrast adjustment, brightness control, grayscale conversion, and threshold settings to enhance document visibility. Integrated OCR (Optical Character Recognition) functionality for text extraction from scanned documents.",
+          url: "#",
+          tech_stack: ["Kotlin", "Google OCR"],
+        },
+        {
+          name: "Pan Esge",
+          description:
+            "Data collection of elementary and junior high school teachers and students across public schools in Surabaya from Pan Esge",
+          url: "#",
+          tech_stack: ["Visual Basic", "Microsoft Access"],
+        },
+      ],
+    },
   },
   {
-    name: "PT Angkasa Mulya Trading",
-    position: "Software Developer",
-    location: "Surabaya, Indonesia",
-    year: "October 2016 - February 2017",
-    description:
-      "Developing and maintaining software applications for the internal company.",
-    app_name: [
-      {
-        name: "Internal Company Application",
-        description:
-          "Developing and maintaining software applications for the internal company.",
-        url: "#",
-        tech_stack: ["C#", "Dev Express", "SQL Server"],
-      },
-    ],
+    "PT Angkasa Mulya Trading": {
+      position: "Software Developer",
+      location: "Surabaya, Indonesia",
+      year: "October 2016 - February 2017",
+      description:
+        "Developing and maintaining software applications for the internal company.",
+      app_name: [
+        {
+          name: "Internal Company Application",
+          description:
+            "Developing and maintaining software applications for the internal company.",
+          url: "#",
+          tech_stack: ["C#", "Dev Express", "SQL Server"],
+        },
+      ],
+    },
   },
 ];
