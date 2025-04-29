@@ -1,12 +1,4 @@
-import {
-  Box,
-  Typography,
-  Link,
-  Stack,
-  Divider,
-  Grid,
-  Avatar,
-} from "@mui/material";
+import { Box, Typography, Stack, Divider, Grid, Avatar } from "@mui/material";
 import React from "react";
 import { link, me, name, references } from "@/app/constant/data";
 import JsonInlineFormat from "@/components/JsonInlineFormat";

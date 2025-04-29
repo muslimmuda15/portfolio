@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useMemo, useState } from "react";
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -8,6 +8,12 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 interface JsonFormatProps {
   value: string;
+}
+
+interface JsonValue {
+  label?: string;
+  url?: string;
+  [key: string]: unknown;
 }
 
 // Colors for different JSON elements
@@ -50,29 +56,38 @@ const getKeyColor = (depth: number): string => {
   }
 };
 
-const formatJsonValue = (value: any, depth: number = 0): React.ReactElement => {
+const formatJsonValue = (
+  value: unknown,
+  depth: number = 0
+): React.ReactElement => {
   if (value === null) {
     return <span style={{ color: jsonColors.null }}>null</span>;
   }
 
   switch (typeof value) {
     case "string":
-      return <span style={{ color: jsonColors.string }}>"{value}"</span>;
+      return (
+        <span style={{ color: jsonColors.string }}>&quot;{value}&quot;</span>
+      );
     case "number":
       return <span style={{ color: jsonColors.number }}>{value}</span>;
     case "boolean":
       return <span style={{ color: jsonColors.boolean }}>{String(value)}</span>;
     case "object":
       // Special handling for objects with label and url
-      if (!Array.isArray(value) && value.label && value.url) {
+      if (
+        !Array.isArray(value) &&
+        (value as JsonValue).label &&
+        (value as JsonValue).url
+      ) {
         return (
           <a
-            href={value.url}
+            href={(value as JsonValue).url}
             target="_self"
             rel="noopener noreferrer"
             style={{ color: jsonColors.string, textDecoration: "underline" }}
           >
-            {value.label}
+            {(value as JsonValue).label}
           </a>
         );
       }
@@ -82,11 +97,16 @@ const formatJsonValue = (value: any, depth: number = 0): React.ReactElement => {
   }
 };
 
-const JsonContent = ({ value, depth = 0 }: { value: any; depth?: number }) => {
+const JsonContent = ({
+  value,
+  depth = 0,
+}: {
+  value: unknown;
+  depth?: number;
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const isArray = Array.isArray(value);
   const bracketColor = { color: jsonColors.bracket };
-  const entries = isArray ? value : Object.entries(value);
   const indent = "  ".repeat(depth);
   const nestedIndent = "  ".repeat(depth + 1);
 
@@ -96,8 +116,6 @@ const JsonContent = ({ value, depth = 0 }: { value: any; depth?: number }) => {
   };
 
   if (isArray) {
-    const isStringArray = value.every((item: any) => typeof item === "string");
-
     return (
       <Box component="span" sx={{ display: "inline" }}>
         <span style={bracketColor}>[</span>
@@ -122,7 +140,7 @@ const JsonContent = ({ value, depth = 0 }: { value: any; depth?: number }) => {
         ) : (
           <>
             <br />
-            {value.map((item: any, index: number) => (
+            {value.map((item: unknown, index: number) => (
               <React.Fragment key={index}>
                 <span>{nestedIndent}</span>
                 {formatJsonValue(item, depth + 1)}
@@ -167,20 +185,24 @@ const JsonContent = ({ value, depth = 0 }: { value: any; depth?: number }) => {
       ) : (
         <>
           <br />
-          {Object.entries(value).map(([key, val], index, arr) => (
-            <React.Fragment key={key}>
-              <span>{nestedIndent}</span>
-              <span style={{ color: getKeyColor(depth) }}>"{key}"</span>
-              <span style={bracketColor}>: </span>
-              {formatJsonValue(val, depth + 1)}
-              {index < arr.length - 1 && (
-                <>
-                  <span style={bracketColor}>,</span>
-                  <br />
-                </>
-              )}
-            </React.Fragment>
-          ))}
+          {Object.entries(value as Record<string, unknown>).map(
+            ([key, val], index, arr) => (
+              <React.Fragment key={key}>
+                <span>{nestedIndent}</span>
+                <span style={{ color: getKeyColor(depth) }}>
+                  &quot;{key}&quot;
+                </span>
+                <span style={bracketColor}>: </span>
+                {formatJsonValue(val, depth + 1)}
+                {index < arr.length - 1 && (
+                  <>
+                    <span style={bracketColor}>,</span>
+                    <br />
+                  </>
+                )}
+              </React.Fragment>
+            )
+          )}
           <br />
           <span>{indent}</span>
           <span style={bracketColor}>{"}"}</span>
