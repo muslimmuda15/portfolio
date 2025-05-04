@@ -92,7 +92,7 @@ export const experience = [
           name: "Appety",
           description:
             "A comprehensive food and drink service platform enabling direct menu ordering and restaurant reservations across Singapore, Malaysia, and Indonesia. Features include real-time ordering system, table reservation management, and integrated online payment solutions.",
-          url: "#",
+          url: { label: "https://appety.sg/", url: "https://appety.sg/" },
           tech_stack: [
             "React",
             "Material UI",
@@ -111,14 +111,17 @@ export const experience = [
           name: "Trampil",
           description:
             "A comprehensive vessel booking platform specializing in LCT (Landing Craft Tank) and Cargo ships for large-scale shipping operations. Features include real-time negotiation system between vessel owners and charterers, live booking monitoring, and integrated order processing after successful negotiations. The platform streamlines the entire vessel chartering process from initial inquiry to final booking confirmation.",
-          url: "#",
+          url: { label: "https://trampil.net/", url: "https://trampil.net/" },
           tech_stack: ["React", "Material UI", "Node.js", "Express", "Graphql"],
         },
         {
           name: "Atendi",
           description:
             "A comprehensive employee attendance and work management system. Features include employee data management, the system consists of scheduling, leave and holiday determine, real-time company performance metrics, and daily bulletin updates. The platform offers advanced functionalities such as check-in/check-out capabilities, visit tracking, employee location monitoring for remote work, and an integrated employee communication system. This all-in-one solution enhances workplace efficiency and employee engagement while providing attendance management tools.",
-          url: "https://www.atendi.co/",
+          url: {
+            label: "https://www.atendi.co/",
+            url: "https://www.atendi.co/",
+          },
           tech_stack: [
             "React",
             "React Native",

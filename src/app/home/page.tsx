@@ -27,7 +27,7 @@ const HomePage = () => {
               container
               direction="column"
               spacing={4}
-              size={4}
+              size={5}
               sx={{ px: 4 }}
             >
               <Avatar
@@ -44,7 +44,7 @@ const HomePage = () => {
                 <JsonBlockFormat value={`${JSON.stringify(link)}`} />
               </Typography>
             </Grid>
-            <Grid size={8}>
+            <Grid size={7}>
               <Typography variant="h5" component="h1">
                 <JsonBlockFormat value={`${JSON.stringify(me)}`} />
               </Typography>

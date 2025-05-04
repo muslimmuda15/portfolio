@@ -29,7 +29,9 @@ const jsonColors = {
   number: "#B5CEA8", // Green for numbers
   boolean: "#569CD6", // Blue for booleans
   null: "#569CD6", // Blue for null
-  bracket: "#FFFF00", // Light gray for brackets and braces
+  bracket: "#569CD6", // Blue for square brackets
+  brace: "#FFFF00", // Yellow for curly braces
+  colon: "#FFFFFF", // White for colons
 } as const;
 
 const isValidJson = (text: string): boolean => {
@@ -118,7 +120,7 @@ const JsonContent = ({
   if (isArray) {
     return (
       <Box component="span" sx={{ display: "inline" }}>
-        <span style={bracketColor}>[</span>
+        <span style={{ color: jsonColors.bracket }}>[</span>
         <IconButton
           size="small"
           onClick={toggleCollapse}
@@ -136,7 +138,7 @@ const JsonContent = ({
           )}
         </IconButton>
         {isCollapsed ? (
-          <span style={bracketColor}>...]</span>
+          <span style={{ color: jsonColors.bracket }}>...]</span>
         ) : (
           <>
             <br />
@@ -146,7 +148,7 @@ const JsonContent = ({
                 {formatJsonValue(item, depth + 1)}
                 {index < value.length - 1 && (
                   <>
-                    <span style={bracketColor}>,</span>
+                    <span style={{ color: jsonColors.bracket }}>,</span>
                     <br />
                   </>
                 )}
@@ -154,7 +156,7 @@ const JsonContent = ({
             ))}
             <br />
             <span>{indent}</span>
-            <span style={bracketColor}>]</span>
+            <span style={{ color: jsonColors.bracket }}>]</span>
           </>
         )}
       </Box>
@@ -163,14 +165,14 @@ const JsonContent = ({
 
   return (
     <Box component="span" sx={{ display: "inline" }}>
-      <span style={bracketColor}>{"{"}</span>
+      <span style={{ color: jsonColors.brace }}>{"{"}</span>
       <IconButton
         size="small"
         onClick={toggleCollapse}
         sx={{
           padding: 0,
           marginRight: 0.5,
-          color: jsonColors.bracket,
+          color: jsonColors.brace,
           "&:hover": { backgroundColor: "transparent" },
         }}
       >
@@ -181,7 +183,7 @@ const JsonContent = ({
         )}
       </IconButton>
       {isCollapsed ? (
-        <span style={bracketColor}>{"..."}</span>
+        <span style={{ color: jsonColors.brace }}>{"..."}</span>
       ) : (
         <>
           <br />
@@ -192,11 +194,11 @@ const JsonContent = ({
                 <span style={{ color: getKeyColor(depth) }}>
                   &quot;{key}&quot;
                 </span>
-                <span style={bracketColor}>: </span>
+                <span style={{ color: jsonColors.colon }}>: </span>
                 {formatJsonValue(val, depth + 1)}
                 {index < arr.length - 1 && (
                   <>
-                    <span style={bracketColor}>,</span>
+                    <span style={{ color: jsonColors.brace }}>,</span>
                     <br />
                   </>
                 )}
@@ -205,7 +207,7 @@ const JsonContent = ({
           )}
           <br />
           <span>{indent}</span>
-          <span style={bracketColor}>{"}"}</span>
+          <span style={{ color: jsonColors.brace }}>{"}"}</span>
         </>
       )}
     </Box>
@@ -225,10 +227,14 @@ export default function JsonBlockFormat({ value: text }: JsonFormatProps) {
   return (
     <Box
       sx={{
-        fontFamily: "monospace",
+        // fontFamily: "monospace",
         whiteSpace: "pre-wrap",
         color: "#D4D4D4",
         borderRadius: 1,
+        fontWeight: 100,
+        "& *": {
+          fontWeight: 100,
+        },
       }}
     >
       {formattedContent}

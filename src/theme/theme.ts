@@ -32,45 +32,45 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "monospace",
+    fontFamily: "var(--font-source-code-pro)",
     h1: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     h2: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     h3: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     h4: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     h5: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     h6: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     subtitle1: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     subtitle2: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     body1: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     body2: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     button: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     caption: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
     overline: {
-      fontFamily: "monospace",
+      fontFamily: "var(--font-source-code-pro)",
     },
   },
 });
