@@ -108,7 +108,7 @@ const JsonContent = ({
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const isArray = Array.isArray(value);
-  const bracketColor = { color: jsonColors.bracket };
+  // const bracketColor = { color: jsonColors.bracket };
   const indent = "  ".repeat(depth);
   const nestedIndent = "  ".repeat(depth + 1);
 
