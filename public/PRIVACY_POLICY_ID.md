@@ -8,7 +8,7 @@ AMB - Smart AutoClicker (sebelumnya dikenal sebagai Smart AutoClicker) adalah ap
 
 ## Informasi Pengembang
 
-Aplikasi ini adalah versi modifikasi berdasarkan proyek Smart AutoClicker asli oleh Nain57, tersedia di https://github.com/Nain57/Smart-AutoClicker. Proyek asli dilisensikan di bawah GNU General Public License v3.0 (GPL-3.0).
+Aplikasi ini dikelola oleh muslimmuda15 dan tersedia di https://github.com/muslimmuda15/Smart-AutoClicker. Ini adalah versi modifikasi berdasarkan proyek Smart AutoClicker asli oleh Nain57, tersedia di https://github.com/Nain57/Smart-AutoClicker. Proyek asli dilisensikan di bawah GNU General Public License v3.0 (GPL-3.0).
 
 ## Informasi yang Kami Kumpulkan
 
@@ -36,20 +36,24 @@ Informasi berikut disimpan **hanya di perangkat Anda** dan tidak pernah dikirimk
 AMB - Smart AutoClicker memerlukan izin tertentu untuk berfungsi dengan baik:
 
 ### Layanan Aksesibilitas
+
 - **Tujuan**: Diperlukan untuk melakukan klik otomatis, geser, dan tindakan lainnya atas nama Anda.
 - **Penggunaan**: Izin ini memungkinkan aplikasi berinteraksi dengan aplikasi lain untuk menjalankan skenario otomasi Anda.
 - **Akses Data**: Meskipun izin ini secara teknis memungkinkan akses ke konten layar, kami hanya menggunakannya untuk tugas otomasi spesifik yang Anda konfigurasi. Tidak ada data yang dikumpulkan, disimpan secara permanen, atau dikirimkan.
 
 ### Tangkapan Layar/Overlay
+
 - **Tujuan**: Diperlukan untuk deteksi gambar dan menampilkan kontrol mengambang.
 - **Penggunaan**: Memungkinkan aplikasi menangkap tangkapan layar untuk pencocokan gambar dan menampilkan tombol overlay.
 - **Akses Data**: Tangkapan layar diproses secara real-time dan hanya disimpan jika Anda secara eksplisit menyimpannya sebagai bagian dari skenario otomasi Anda.
 
 ### Akses Penyimpanan
+
 - **Tujuan**: Untuk menyimpan dan memuat skenario otomasi Anda.
 - **Penggunaan**: Memungkinkan aplikasi membaca dan menulis file skenario di perangkat Anda.
 
 ### Akses Internet (Opsional)
+
 - **Tujuan**: Hanya digunakan saat Anda memilih untuk menggunakan fitur API untuk memuat tindakan otomasi.
 - **Penggunaan**: Saat Anda mengonfigurasi endpoint API, aplikasi akan membuat permintaan jaringan ke endpoint tersebut untuk mengambil konfigurasi tindakan.
 - **Data yang Dikirim**: Hanya data yang diperlukan untuk berkomunikasi dengan endpoint API yang Anda tentukan.
@@ -120,7 +124,7 @@ AMB - Smart AutoClicker disediakan "sebagaimana adanya" tanpa jaminan apa pun, s
 
 ## Atribusi
 
-Aplikasi ini didasarkan pada Smart AutoClicker oleh Nain57 (https://github.com/Nain57/Smart-AutoClicker), dilisensikan di bawah GNU General Public License v3.0.
+Aplikasi ini dikelola oleh muslimmuda15 dan tersedia di https://github.com/muslimmuda15/Smart-AutoClicker. Didasarkan pada Smart AutoClicker oleh Nain57 (https://github.com/Nain57/Smart-AutoClicker), dilisensikan di bawah GNU General Public License v3.0.
 
 ---
 

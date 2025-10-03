@@ -8,7 +8,7 @@ AMB - Smart AutoClicker (formerly known as Smart AutoClicker) is an open-source 
 
 ## Developer Information
 
-This application is a modified version based on the original Smart AutoClicker project by Nain57, available at https://github.com/Nain57/Smart-AutoClicker. The original project is licensed under the GNU General Public License v3.0 (GPL-3.0).
+This application is maintained by muslimmuda15 and is available at https://github.com/muslimmuda15/Smart-AutoClicker. This is a modified version based on the original Smart AutoClicker project by Nain57, available at https://github.com/Nain57/Smart-AutoClicker. The original project is licensed under the GNU General Public License v3.0 (GPL-3.0).
 
 ## Information We Collect
 
@@ -60,7 +60,7 @@ AMB - Smart AutoClicker requires certain permissions to function properly:
 
 ## Third-Party Services
 
-AMB - Smart AutoClicker does not integrate any third-party analytics, advertising, or tracking services. The app operates entirely offline, except when you explicitly configure and use the API feature.
+AMB - Smart AutoClicker does not integrate any third-party analytics, or tracking services. The app operates entirely offline, except when you explicitly configure and use the API feature.
 
 ## API Feature
 
@@ -124,7 +124,7 @@ AMB - Smart AutoClicker is provided "as is" without warranty of any kind, as spe
 
 ## Attribution
 
-This application is based on Smart AutoClicker by Nain57 (https://github.com/Nain57/Smart-AutoClicker), licensed under GNU General Public License v3.0.
+This application is maintained by muslimmuda15 and is available at https://github.com/muslimmuda15/Smart-AutoClicker. It is based on Smart AutoClicker by Nain57 (https://github.com/Nain57/Smart-AutoClicker), licensed under GNU General Public License v3.0.
 
 ---
 
