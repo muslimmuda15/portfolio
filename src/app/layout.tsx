@@ -1,7 +1,6 @@
 import "./globals.css";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { ThemeRegistry } from "@/components/ThemeRegistry";
 import localFont from "next/font/local";
+import { DarkModeProvider } from "@/components/DarkModeProvider";
 
 export const metadata = {
   title: "Rachmad AF - Portfolio",
@@ -20,11 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={sourceCodePro.variable}>
+    <html lang="en" className={sourceCodePro.variable} suppressHydrationWarning>
       <body className={sourceCodePro.className}>
-        <AppRouterCacheProvider>
-          <ThemeRegistry>{children}</ThemeRegistry>
-        </AppRouterCacheProvider>
+        <DarkModeProvider>{children}</DarkModeProvider>
       </body>
     </html>
   );
