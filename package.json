@@ -12,8 +12,7 @@
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
     "clean": "turbo run clean",
-    "dev:web": "npm run dev --workspace=apps/web",
-    "dev:ai": "cd apps/ai-backend && source venv/bin/activate && uvicorn main:app --reload --port 8000"
+    "dev:web": "npm run dev --workspace=apps/web"
   },
   "devDependencies": {
     "turbo": "^2.3.3"

@@ -1,14 +1,13 @@
 # Portfolio Monorepo
 
-A Turborepo monorepo containing a Next.js portfolio website and a Python AI backend.
+A Turborepo monorepo containing a Next.js portfolio website with AI chatbot integration.
 
 ## Structure
 
 ```
 portfolio/
 ├── apps/
-│   ├── web/              # Next.js portfolio website
-│   └── ai-backend/       # Python FastAPI AI application
+│   └── web/              # Next.js portfolio website with AI chatbot
 ├── packages/             # Shared packages (for future use)
 ├── turbo.json           # Turborepo configuration
 └── package.json         # Root workspace configuration
@@ -19,7 +18,7 @@ portfolio/
 ### Prerequisites
 
 - Node.js 18+ and npm
-- Python 3.8+
+- OpenAI API key (for chatbot functionality)
 
 ### Installation
 
@@ -29,77 +28,62 @@ portfolio/
 npm install
 ```
 
-2. Set up Python backend:
+2. Set up environment variables:
+
+Create `apps/web/.env.local` file:
 
 ```bash
-cd apps/ai-backend
-python3 -m venv venv
-source venv/bin/activate  # On Linux/Mac
-# or venv\Scripts\activate on Windows
-pip install -r requirements.txt
-cd ../..
+OPEN_ROUTER_API_KEY=your_OPEN_ROUTER_API_KEY_here
 ```
+
+See [apps/web/ENV_SETUP.md](apps/web/ENV_SETUP.md) for detailed instructions.
 
 ### Development
 
-Run all apps concurrently:
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
-Or run apps individually:
-
-**Web app only:**
-
-```bash
-npm run dev:web
-# or
-cd apps/web && npm run dev
-```
-
-**AI backend only:**
-
-```bash
-npm run dev:ai
-# or
-cd apps/ai-backend && source venv/bin/activate && uvicorn main:app --reload --port 8000
-```
+The app will be available at `http://localhost:3000`
 
 ### Build
 
-Build all apps:
+Build the app for production:
 
 ```bash
 npm run build
 ```
 
-## Apps
+## Features
 
-### Web (apps/web)
+### Web App (apps/web)
 
 Next.js portfolio website with:
 
 - Modern UI with dark mode support
-- AI chat integration
+- AI chatbot powered by OpenAI
 - Responsive design
+- Stateless chat (no conversation memory)
 
 **Development:** `http://localhost:3000`
 
-### AI Backend (apps/ai-backend)
-
-Python FastAPI backend providing:
-
-- AI chat endpoints
-- Conversation management
-- OpenAI integration (optional)
-
-**Development:** `http://localhost:8000`
-**API Docs:** `http://localhost:8000/docs`
-
 ## Scripts
 
-- `npm run dev` - Start all apps in development mode
-- `npm run build` - Build all apps
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
 - `npm run lint` - Lint all apps
 - `npm run clean` - Clean all apps
+- `npm run dev:web` - Start web app only
+
+## Deployment
+
+This project is ready to deploy on Vercel:
+
+1. Push your code to GitHub
+2. Import the project to Vercel
+3. Set the `OPEN_ROUTER_API_KEY` environment variable in Vercel project settings
+4. Deploy!
+
+See [apps/web/ENV_SETUP.md](apps/web/ENV_SETUP.md) for environment variable configuration.

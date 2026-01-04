@@ -16,7 +16,6 @@ export default function Home() {
   // AI Chat state
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -62,14 +61,13 @@ export default function Home() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8000/api/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: inputValue,
-          conversation_id: conversationId,
         }),
       });
 
@@ -78,10 +76,6 @@ export default function Home() {
       }
 
       const data = await response.json();
-
-      if (!conversationId) {
-        setConversationId(data.conversation_id);
-      }
 
       const aiMessage: Message = {
         role: "assistant",
@@ -92,7 +86,7 @@ export default function Home() {
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
       setError(
-        "Failed to connect to AI backend. Make sure the Python server is running on port 8000."
+        "Failed to connect to AI service. Please make sure OPEN_ROUTER_API_KEY is configured."
       );
       console.error("AI Error:", err);
     } finally {
