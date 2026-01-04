@@ -1,11 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDarkMode } from "@/components/DarkModeProvider";
+
+interface Message {
+  role: "user" | "assistant";
+  content: string;
+  timestamp: string;
+}
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  // AI Chat state
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleNavigate = (section: string) => {
     console.log(`Navigating to ${section}`);
@@ -26,11 +47,56 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = () => {
-    if (inputValue.trim()) {
-      console.log("Input submitted:", inputValue);
-      // Add your submit logic here
-      setInputValue(""); // Clear input after submit
+  const handleSubmit = async () => {
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      role: "user",
+      content: inputValue,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("http://localhost:8000/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: inputValue,
+          conversation_id: conversationId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get AI response");
+      }
+
+      const data = await response.json();
+
+      if (!conversationId) {
+        setConversationId(data.conversation_id);
+      }
+
+      const aiMessage: Message = {
+        role: "assistant",
+        content: data.response,
+        timestamp: new Date().toISOString(),
+      };
+
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (err) {
+      setError(
+        "Failed to connect to AI backend. Make sure the Python server is running on port 8000."
+      );
+      console.error("AI Error:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,7 +105,7 @@ export default function Home() {
   // }, [isDarkMode]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-between p-8 relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-[#1a1a1a] dark:to-[#2d2d2d]">
+    <div className="min-h-screen flex flex-col items-center justify-between relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-[#1a1a1a] dark:to-[#2d2d2d]">
       {/* Soft gradient background blobs */}
       {/* <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-pulse-slow" />
       <div
@@ -106,14 +172,69 @@ export default function Home() {
         />
       </div>
 
-      {/* Greeting word at top-center */}
-      <div className="relative z-10 flex-1 flex items-center justify-center">
-        <div className="text-center animate-fade-in-down">
-          <h1 className="text-7xl md:text-8xl font-bold mb-2">👋</h1>
-          <p className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300">
-            Hello!
-          </p>
-        </div>
+      {/* Greeting word at top-center OR Chat Messages */}
+      <div className="relative z-10 flex-1 flex items-center justify-center w-full overflow-y-auto px-4 mb-4">
+        {messages.length === 0 ? (
+          <div className="text-center animate-fade-in-down">
+            <h1 className="text-7xl md:text-8xl font-bold mb-2">👋</h1>
+            <p className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300">
+              Hello!
+            </p>
+          </div>
+        ) : (
+          <div className="w-full max-w-2xl space-y-6 py-6 h-[calc(100vh-12rem)]">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex ${
+                  message.role === "user" ? "justify-end" : "justify-start"
+                } animate-fade-in-up`}
+              >
+                <div
+                  className={`max-w-[80%] rounded-2xl px-6 py-4 ${
+                    message.role === "user"
+                      ? "bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-cyan-400 text-white"
+                      : "bg-white dark:bg-white/10 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10"
+                  } shadow-lg`}
+                >
+                  <p className="text-sm md:text-base whitespace-pre-wrap">
+                    {message.content}
+                  </p>
+                </div>
+              </div>
+            ))}
+
+            {isLoading && (
+              <div className="flex justify-start animate-fade-in-up">
+                <div className="bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 rounded-2xl px-6 py-4 shadow-lg">
+                  <div className="flex gap-2">
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
+                    <div
+                      className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
+                      style={{ animationDelay: "0.4s" }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {error && (
+              <div className="flex justify-center animate-fade-in">
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-6 py-4 max-w-[80%]">
+                  <p className="text-red-600 dark:text-red-400 text-sm">
+                    ⚠️ {error}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+        )}
       </div>
 
       {/* Search Input and Navigation buttons at bottom */}
@@ -247,12 +368,13 @@ export default function Home() {
             value={inputValue}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
-            className="w-full px-6 py-4 pr-14 text-base bg-white dark:bg-white/5 backdrop-blur-sm rounded-full border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 shadow-lg transition-all duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            disabled={isLoading}
+            className="w-full px-6 py-4 pr-14 text-base bg-white dark:bg-white/5 backdrop-blur-sm rounded-full border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 shadow-lg transition-all duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
             autoComplete="off"
           />
           <button
             onClick={handleSubmit}
-            disabled={!inputValue.trim()}
+            disabled={!inputValue.trim() || isLoading}
             className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-cyan-400 flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
             aria-label="Send message"
           >
