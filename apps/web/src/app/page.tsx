@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDarkMode } from "@/components/DarkModeProvider";
 
 export default function Home() {
@@ -9,7 +9,11 @@ export default function Home() {
 
   const handleNavigate = (section: string) => {
     console.log(`Navigating to ${section}`);
-    // Add your navigation logic here
+    // Navigate to the appropriate page
+    if (section === "ai") {
+      window.location.href = "/ai";
+    }
+    // Add your navigation logic for other sections here
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,6 +176,27 @@ export default function Home() {
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
             Skills
+          </button>
+
+          <button
+            onClick={() => handleNavigate("ai")}
+            className="flex-1 px-4 py-3 text-sm font-medium rounded-2xl bg-white dark:bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-white/10 text-gray-800 dark:text-gray-200 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:bg-blue-50 dark:hover:bg-white/10 active:translate-y-0 flex items-center justify-center gap-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 text-gray-700 dark:text-gray-300"
+            >
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+              <circle cx="12" cy="19" r="3" />
+            </svg>
+            AI
           </button>
 
           <button

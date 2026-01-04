@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Monorepo
+
+A Turborepo monorepo containing a Next.js portfolio website and a Python AI backend.
+
+## Structure
+
+```
+portfolio/
+├── apps/
+│   ├── web/              # Next.js portfolio website
+│   └── ai-backend/       # Python FastAPI AI application
+├── packages/             # Shared packages (for future use)
+├── turbo.json           # Turborepo configuration
+└── package.json         # Root workspace configuration
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ and npm
+- Python 3.8+
+
+### Installation
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Set up Python backend:
+
+```bash
+cd apps/ai-backend
+python3 -m venv venv
+source venv/bin/activate  # On Linux/Mac
+# or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+cd ../..
+```
+
+### Development
+
+Run all apps concurrently:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or run apps individually:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Web app only:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev:web
+# or
+cd apps/web && npm run dev
+```
 
-## Learn More
+**AI backend only:**
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev:ai
+# or
+cd apps/ai-backend && source venv/bin/activate && uvicorn main:app --reload --port 8000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Build all apps:
 
-## Deploy on Vercel
+```bash
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Apps
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Web (apps/web)
+
+Next.js portfolio website with:
+
+- Modern UI with dark mode support
+- AI chat integration
+- Responsive design
+
+**Development:** `http://localhost:3000`
+
+### AI Backend (apps/ai-backend)
+
+Python FastAPI backend providing:
+
+- AI chat endpoints
+- Conversation management
+- OpenAI integration (optional)
+
+**Development:** `http://localhost:8000`
+**API Docs:** `http://localhost:8000/docs`
+
+## Scripts
+
+- `npm run dev` - Start all apps in development mode
+- `npm run build` - Build all apps
+- `npm run lint` - Lint all apps
+- `npm run clean` - Clean all apps

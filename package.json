@@ -1,33 +1,25 @@
 {
-  "name": "my-json-portfolio",
-  "version": "0.1.0",
+  "name": "portfolio-monorepo",
+  "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "clean": "rm -rf node_modules",
-    "clean:lock": "rm -f package-lock.json yarn.lock pnpm-lock.yaml",
-    "clean:all": "npm run clean && npm run clean:lock",
-    "fresh": "npm run clean:all && npm install"
-  },
-  "dependencies": {
-    "next": "15.3.1",
-    "postcss": "^8.5.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind": "^4.0.0"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "clean": "turbo run clean",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:ai": "cd apps/ai-backend && source venv/bin/activate && uvicorn main:app --reload --port 8000"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.1",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5"
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

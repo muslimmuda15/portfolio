@@ -18,7 +18,7 @@ const DarkModeContext = createContext<DarkModeContextType | undefined>(
 );
 
 export function DarkModeProvider({ children }: { children: ReactNode }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>();
   const [mounted, setMounted] = useState(false);
 
   // Initialize dark mode from localStorage or system preference
@@ -40,10 +40,12 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
 
-    if (isDarkMode) {
+    if (isDarkMode === undefined) return;
+
+    if (isDarkMode === true) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("darkMode", "true");
-    } else {
+    } else if (isDarkMode === false) {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("darkMode", "false");
     }
@@ -52,6 +54,8 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
+
+  if (isDarkMode === undefined) return null;
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
