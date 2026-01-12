@@ -2,15 +2,23 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useDarkMode } from "@/components/DarkModeProvider";
+import Image from "next/image";
+import { me as Me } from "@/app/contants/me";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
   timestamp: string;
+  section: Section;
 }
 
+type Section = "me" | "skills" | "projects" | "ai" | "contact" | "prompt";
+
 export default function Home() {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState({
+    message: "",
+    section: "prompt",
+  });
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   // AI Chat state
@@ -24,39 +32,25 @@ export default function Home() {
   };
 
   useEffect(() => {
+    console.log("Message :", messages);
     scrollToBottom();
   }, [messages]);
 
-  const handleNavigate = (section: string) => {
-    console.log(`Navigating to ${section}`);
-    // Navigate to the appropriate page
-    if (section === "ai") {
-      window.location.href = "/ai";
-    }
-    // Add your navigation logic for other sections here
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && inputValue.trim()) {
-      handleSubmit();
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!inputValue.trim() || isLoading) return;
+  const sendMessage = async (messageContent: string, section: Section) => {
+    if (!messageContent.trim() || isLoading) return;
 
     const userMessage: Message = {
       role: "user",
-      content: inputValue,
+      content: messageContent,
+      section,
       timestamp: new Date().toISOString(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInputValue("");
+    setInputValue({
+      message: "",
+      section: "prompt",
+    });
     setIsLoading(true);
     setError(null);
 
@@ -67,7 +61,8 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: inputValue,
+          message: messageContent,
+          section,
         }),
       });
 
@@ -80,6 +75,7 @@ export default function Home() {
       const aiMessage: Message = {
         role: "assistant",
         content: data.response,
+        section: data.type,
         timestamp: new Date().toISOString(),
       };
 
@@ -92,6 +88,58 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleNavigate = (section: string) => {
+    let data: { message: string; section: Section } = {
+      message: "",
+      section: "prompt",
+    };
+    switch (section) {
+      case "me":
+        data = {
+          message: "Who are you? I want to know more about you",
+          section: "me",
+        };
+        break;
+      case "skills":
+        data = {
+          message:
+            "What are your skills? Give me a list of your soft and hard skills.",
+          section: "skills",
+        };
+
+        break;
+      case "about":
+        window.location.href = "/about";
+        break;
+      case "contact":
+        window.location.href = "/contact";
+        break;
+      default:
+        break;
+    }
+    setInputValue(data);
+    setTimeout(() => {
+      sendMessage(data.message, data.section as Section);
+    }, 300);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue({
+      message: event.target.value,
+      section: "prompt",
+    });
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && inputValue.message.trim()) {
+      handleSubmit();
+    }
+  };
+
+  const handleSubmit = async () => {
+    await sendMessage(inputValue.message, inputValue.section as Section);
   };
 
   // useEffect(() => {
@@ -159,15 +207,17 @@ export default function Home() {
         </button>
 
         {/* Profile Photo */}
-        <img
+        <Image
           src="/photo.jpg"
           alt="Profile"
+          width={48}
+          height={48}
           className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-gray-300 dark:border-white/30 shadow-lg hover:scale-110 transition-transform duration-300"
         />
       </div>
 
       {/* Greeting word at top-center OR Chat Messages */}
-      <div className="relative z-10 flex-1 flex items-center justify-center w-full overflow-y-auto px-4 mb-4">
+      <div className="relative z-10 flex-1 flex items-center justify-center overflow-y-auto px-4 mb-4">
         {messages.length === 0 ? (
           <div className="text-center animate-fade-in-down">
             <h1 className="text-7xl md:text-8xl font-bold mb-2">👋</h1>
@@ -176,7 +226,7 @@ export default function Home() {
             </p>
           </div>
         ) : (
-          <div className="w-full max-w-2xl space-y-6 py-6 h-[calc(100vh-12rem)]">
+          <div className="w-full max-w-200 space-y-6 py-6 h-[calc(100vh-12rem)]">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -185,15 +235,29 @@ export default function Home() {
                 } animate-fade-in-up`}
               >
                 <div
-                  className={`max-w-[80%] rounded-2xl px-6 py-4 ${
+                  className={`${
+                    message.role === "assistant" && message.section !== "prompt"
+                      ? "max-w-full"
+                      : "max-w-[80%]"
+                  } rounded-2xl px-6 py-4 ${
                     message.role === "user"
                       ? "bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-cyan-400 text-white"
                       : "bg-white dark:bg-white/10 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10"
                   } shadow-lg`}
                 >
-                  <p className="text-sm md:text-base whitespace-pre-wrap">
-                    {message.content}
-                  </p>
+                  {message.role === "assistant" ? (
+                    message.section === "me" ? (
+                      <Me />
+                    ) : (
+                      <p className="text-sm md:text-base whitespace-pre-wrap">
+                        {message.content}
+                      </p>
+                    )
+                  ) : (
+                    <p className="text-sm md:text-base whitespace-pre-wrap">
+                      {message.content}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
@@ -232,7 +296,7 @@ export default function Home() {
       </div>
 
       {/* Search Input and Navigation buttons at bottom */}
-      <div className="relative z-10 w-full max-w-2xl flex flex-col items-center gap-4 pb-4">
+      <div className="relative z-10 w-full max-w-200 flex flex-col items-center gap-4 pb-4">
         {/* Navigation buttons */}
         <div className="flex gap-3 w-full animate-fade-in-up-delay">
           <button
@@ -359,7 +423,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="Ask me anything..."
-            value={inputValue}
+            value={inputValue.message}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
             disabled={isLoading}
@@ -368,7 +432,7 @@ export default function Home() {
           />
           <button
             onClick={handleSubmit}
-            disabled={!inputValue.trim() || isLoading}
+            disabled={!inputValue.message.trim() || isLoading}
             className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-cyan-400 flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
             aria-label="Send message"
           >

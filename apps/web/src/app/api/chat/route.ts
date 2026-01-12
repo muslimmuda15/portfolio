@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { PROFILE } from "../../../data/profile";
 
 // Force Node.js runtime for OpenAI SDK compatibility
 export const runtime = "nodejs";
@@ -7,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     // Parse request body
     const body = await request.json();
-    const { message } = body;
+    const { message, section } = body;
 
     // Validate message
     if (!message || typeof message !== "string") {
@@ -32,38 +33,123 @@ export async function POST(request: NextRequest) {
     const { default: OpenAI } = await import("openai");
 
     // Initialize OpenAI client with OpenRouter base URL
-    // OpenRouter API keys start with 'sk-or-v1-'
     const openai = new OpenAI({
       apiKey: process.env.OPEN_ROUTER_API_KEY,
       baseURL: process.env.OPEN_ROUTER_BASE_URL,
     });
 
-    // Call OpenAI API (stateless - no conversation history)
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
+    let aiResponse = "";
+    let aiSection = section;
+
+    if (section === "prompt") {
+      // Define tools
+      const tools = [
+        {
+          type: "function",
+          function: {
+            name: "get_profile",
+            description: "Get the user's profile information.",
+            parameters: {
+              type: "object",
+              properties: {},
+              required: [],
+            },
+          },
+        },
+        {
+          type: "function",
+          function: {
+            name: "get_current_time",
+            description: "Get the current time.",
+            parameters: {
+              type: "object",
+              properties: {},
+              required: [],
+            },
+          },
+        },
+      ];
+
+      const messages = [
         {
           role: "system",
-          content:
-            "You are a helpful AI assistant for Rachmad AF's portfolio website. You can answer questions about the portfolio, projects, skills, and provide general assistance. Be friendly, concise, and professional.",
+          content: `You are a helpful AI assistant for ${PROFILE.name}'s portfolio website. You have access to tools to get profile information and the current time. Always use the get_profile tool to answer questions about the owner.`,
         },
         {
           role: "user",
           content: message,
         },
-      ],
-      temperature: 0.7,
-      max_tokens: 500,
-    });
+      ];
 
-    // Extract response
-    const aiResponse =
-      completion.choices[0]?.message?.content ||
-      "I'm sorry, I couldn't generate a response.";
+      const maxTurns = 5;
+      let turnCount = 0;
+
+      while (turnCount < maxTurns) {
+        const completion = await openai.chat.completions.create({
+          model: "gpt-3.5-turbo",
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          messages: messages as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          tools: tools as any,
+          tool_choice: "auto",
+          temperature: 0.7,
+          max_tokens: 500,
+        });
+
+        const responseMessage = completion.choices[0].message;
+
+        // Add assistant message to history
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        messages.push(responseMessage as any);
+
+        if (responseMessage.tool_calls) {
+          // Handle tool calls
+          for (const toolCall of responseMessage.tool_calls) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const functionName = (toolCall as any).function.name;
+            // const functionArgs = JSON.parse(
+            //   (toolCall as any).function.arguments
+            // );
+            let functionResult = "";
+
+            if (functionName === "get_profile") {
+              functionResult = JSON.stringify(PROFILE);
+              aiSection = "me";
+            } else if (functionName === "get_current_time") {
+              functionResult = new Date().toLocaleString();
+            }
+
+            messages.push({
+              tool_call_id: toolCall.id,
+              role: "tool",
+              name: functionName,
+              content: functionResult,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any);
+          }
+          // Continue loop to get final response
+          turnCount++;
+        } else {
+          // No tool calls, we have the final response
+          aiResponse =
+            responseMessage.content ||
+            "I'm sorry, I couldn't generate a response.";
+          break;
+        }
+      }
+
+      if (!aiResponse && turnCount >= maxTurns) {
+        aiResponse =
+          "I apologize, but I'm having trouble processing your request right now (too many steps).";
+      }
+    } else {
+      aiResponse = "AI chat is only available in the 'Prompt' section.";
+    }
 
     // Return response
     return NextResponse.json({
       response: aiResponse,
+      type: aiSection,
     });
   } catch (error: unknown) {
     console.error("Chat API Error:", error);
