@@ -39,19 +39,19 @@ export const me = () => {
               {PROFILE.shortBio}
             </p>
           </div>
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 justify-center md:justify-start pt-2">
-            {PROFILE.skills.map((tag) => (
-              <span
-                key={tag}
-                className="px-4 py-1.5 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-white/20 transition-colors cursor-default"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </div>
+      </div>
+
+      {/* Tags */}
+      <div className="flex flex-wrap gap-2 justify-center md:justify-start pt-8">
+        {PROFILE.skills.map((tag) => (
+          <span
+            key={tag}
+            className="px-4 py-1.5 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-white/20 transition-colors cursor-default"
+          >
+            {tag}
+          </span>
+        ))}
       </div>
 
       {/* Bio Text Section */}

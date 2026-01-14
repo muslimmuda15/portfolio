@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PROFILE } from "../../../data/profile";
+import { chatTools } from "./tools";
+import { Skills } from "@/data/skills";
+import { Projects } from "@/data/projects";
+import { ContactInfo } from "@/data/contacts";
 
 // Force Node.js runtime for OpenAI SDK compatibility
 export const runtime = "nodejs";
@@ -42,34 +46,6 @@ export async function POST(request: NextRequest) {
     let aiSection = section;
 
     if (section === "prompt") {
-      // Define tools
-      const tools = [
-        {
-          type: "function",
-          function: {
-            name: "get_profile",
-            description: "Get the user's profile information.",
-            parameters: {
-              type: "object",
-              properties: {},
-              required: [],
-            },
-          },
-        },
-        {
-          type: "function",
-          function: {
-            name: "get_current_time",
-            description: "Get the current time.",
-            parameters: {
-              type: "object",
-              properties: {},
-              required: [],
-            },
-          },
-        },
-      ];
-
       const messages = [
         {
           role: "system",
@@ -89,8 +65,7 @@ export async function POST(request: NextRequest) {
           model: "gpt-3.5-turbo",
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           messages: messages as any,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          tools: tools as any,
+          tools: chatTools,
           tool_choice: "auto",
           temperature: 0.7,
           max_tokens: 500,
@@ -115,6 +90,15 @@ export async function POST(request: NextRequest) {
             if (functionName === "get_profile") {
               functionResult = JSON.stringify(PROFILE);
               aiSection = "me";
+            } else if (functionName === "get_skills") {
+              functionResult = JSON.stringify(Skills);
+              aiSection = "skills";
+            } else if (functionName === "get_projects") {
+              functionResult = JSON.stringify(Projects);
+              aiSection = "projects";
+            } else if (functionName === "get_contacts") {
+              functionResult = JSON.stringify(ContactInfo);
+              aiSection = "contacts";
             } else if (functionName === "get_current_time") {
               functionResult = new Date().toLocaleString();
             }
