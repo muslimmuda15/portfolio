@@ -38,6 +38,12 @@ export default function Home() {
   // Input focus state for animation
   const [isInputFocused, setIsInputFocused] = useState(false);
 
+  useEffect(() => {
+    if (!isLoading && isInputFocused && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isLoading, isInputFocused]);
+
   // Project Dialog state
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -174,9 +180,11 @@ export default function Home() {
     }
     setInputValue(data);
     setTimeout(() => {
-      sendMessage(data.message, data.section as Section);
       // Refocus the input after navigation
       inputRef.current?.focus();
+    }, 0);
+    setTimeout(() => {
+      sendMessage(data.message, data.section as Section);
     }, 300);
   };
 
@@ -385,7 +393,7 @@ export default function Home() {
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
             onFocus={() => setIsInputFocused(true)}
-            onBlur={() => setIsInputFocused(false)}
+            onBlur={() => !isLoading && setIsInputFocused(false)}
             disabled={isLoading}
             className="w-full px-6 py-4 pr-14 text-base bg-white dark:bg-white/5 backdrop-blur-sm rounded-full border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 shadow-lg transition-all duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
             autoComplete="off"

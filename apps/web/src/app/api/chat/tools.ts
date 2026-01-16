@@ -29,7 +29,8 @@ export const chatTools: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "get_projects",
-      description: "Get the user's projects information.",
+      description:
+        "Get the user's projects information and experience information.",
       parameters: {
         type: "object",
         properties: {},

@@ -103,6 +103,9 @@ export async function POST(request: NextRequest) {
               functionResult = new Date().toLocaleString();
             }
 
+            /**
+             * Message is chat list
+             */
             messages.push({
               tool_call_id: toolCall.id,
               role: "tool",
