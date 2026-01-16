@@ -1,89 +1,36 @@
-# Portfolio Monorepo
-
-A Turborepo monorepo containing a Next.js portfolio website with AI chatbot integration.
-
-## Structure
-
-```
-portfolio/
-├── apps/
-│   └── web/              # Next.js portfolio website with AI chatbot
-├── packages/             # Shared packages (for future use)
-├── turbo.json           # Turborepo configuration
-└── package.json         # Root workspace configuration
-```
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18+ and npm
-- OpenAI API key (for chatbot functionality)
-
-### Installation
-
-1. Install dependencies:
-
-```bash
-npm install
-```
-
-2. Set up environment variables:
-
-Create `apps/web/.env.local` file:
-
-```bash
-OPEN_ROUTER_API_KEY=your_OPEN_ROUTER_API_KEY_here
-```
-
-See [apps/web/ENV_SETUP.md](apps/web/ENV_SETUP.md) for detailed instructions.
-
-### Development
-
-Run the development server:
+First, run the development server:
 
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-The app will be available at `http://localhost:3000`
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Build
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Build the app for production:
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-```bash
-npm run build
-```
+## Learn More
 
-## Features
+To learn more about Next.js, take a look at the following resources:
 
-### Web App (apps/web)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Next.js portfolio website with:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-- Modern UI with dark mode support
-- AI chatbot powered by OpenAI
-- Responsive design
-- Stateless chat (no conversation memory)
+## Deploy on Vercel
 
-**Development:** `http://localhost:3000`
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run lint` - Lint all apps
-- `npm run clean` - Clean all apps
-- `npm run dev:web` - Start web app only
-
-## Deployment
-
-This project is ready to deploy on Vercel:
-
-1. Push your code to GitHub
-2. Import the project to Vercel
-3. Set the `OPEN_ROUTER_API_KEY` environment variable in Vercel project settings
-4. Deploy!
-
-See [apps/web/ENV_SETUP.md](apps/web/ENV_SETUP.md) for environment variable configuration.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
