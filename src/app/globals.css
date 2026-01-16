@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 @variant dark (&:where(.dark, .dark *));
 
@@ -7,6 +7,11 @@
   --foreground-rgb: 31, 41, 55;
   --background-start-rgb: 249, 250, 251;
   --background-end-rgb: 243, 244, 246;
+
+  /* Scrollbar - Light Mode */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: #d1d5db;
+  --scrollbar-thumb-hover: #9ca3af;
 }
 
 @theme inline {
@@ -20,6 +25,11 @@
   --foreground-rgb: 229, 231, 235;
   --background-start-rgb: 26, 26, 26;
   --background-end-rgb: 45, 45, 45;
+
+  /* Scrollbar - Dark Mode */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: #4b5563;
+  --scrollbar-thumb-hover: #6b7280;
   --background: #1a1a1a;
   --foreground: #e5e7eb;
 }
@@ -38,6 +48,52 @@ body {
 body {
   color: rgb(var(--foreground-rgb));
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox Scrollbar Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Autohide Scrollbar */
+.scrollbar-autohide::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scrollbar-autohide:hover::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+.scrollbar-autohide:hover::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+.scrollbar-autohide {
+  scrollbar-color: transparent transparent;
+}
+
+.scrollbar-autohide:hover {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 /* Custom animations */

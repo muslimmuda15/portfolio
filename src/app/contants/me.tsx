@@ -26,7 +26,7 @@ export const me = () => {
               {PROFILE.name}
             </h1>
             <p className="text-lg text-gray-500 dark:text-gray-400 font-medium">
-              {PROFILE.age} years old <span className="mx-2">•</span>{" "}
+              {/* {PROFILE.age} years old <span className="mx-2">•</span>{" "} */}
               {PROFILE.location}
             </p>
           </div>

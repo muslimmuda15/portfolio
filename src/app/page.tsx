@@ -273,7 +273,7 @@ export default function Home() {
       </div>
 
       {/* Greeting word at top-center OR Chat Messages */}
-      <div className="relative w-full z-10 flex-1 flex items-center justify-center overflow-y-auto px-4 mb-4">
+      <div className="relative w-200 z-10 flex-1 flex items-center justify-center overflow-y-auto px-4 mb-0 scrollbar-autohide">
         {messages.length === 0 ? (
           <div className="text-center animate-fade-in-down">
             <h1 className="text-7xl md:text-8xl font-bold mb-2">👋</h1>
@@ -364,7 +364,7 @@ export default function Home() {
         {/* Navigation buttons */}
         <div
           className={`flex gap-2 w-full overflow-hidden transition-all duration-500 ease-in-out ${
-            !isInputFocused ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
+            !isInputFocused ? "max-h-0 opacity-0" : "max-h-20 opacity-100 mt-4"
           }`}
         >
           {navigationButtons.map((button) => (

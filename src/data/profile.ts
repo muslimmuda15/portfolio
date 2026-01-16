@@ -6,7 +6,7 @@ export const PROFILE = {
   company: "Garasilabs",
   shortBio:
     "I'm Rachmad. I'm a developer specializing web and mobile applications. I'm working at Garasilabs in Surabaya. I'm passionate about AI, tech and Entrepreneurship.",
-  bio: `I'm Rachmad alif firdaus, a 32-year-old full-stack developer specializing in Web and Mobile applications, currently rocking it at Garasilabs in Surabaya. I'm all about coding and innovation! 🚀 I'm realy existing with innovation project.
+  bio: `I'm Rachmad alif firdaus, a full-stack developer specializing in Web and Mobile applications, currently rocking it at Garasilabs in Surabaya. I'm all about coding and innovation! 🚀 I'm realy existing with innovation project.
 
 I'm really passionate about frontend, tech, and mobile application, especially multiplatform application. So, what about you? What brings you here? 😊`,
   skills: [
