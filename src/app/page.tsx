@@ -7,7 +7,7 @@ import { me as Me } from "@/app/contants/me";
 import { skills as Skills } from "@/app/contants/skills";
 import { projects as Projects } from "@/app/contants/projects";
 import { contacts as Contacts } from "@/app/contants/contacts";
-import { navigationButtons } from "@/app/contants/navigation";
+import { navigationButtons } from "@/data/navigation";
 import { Project } from "@/data/projects";
 import ProjectDialog from "@/app/components/ProjectDialog";
 import StreamingText from "@/app/components/StreamingText";
@@ -273,7 +273,7 @@ export default function Home() {
       </div>
 
       {/* Greeting word at top-center OR Chat Messages */}
-      <div className="relative w-200 z-10 flex-1 flex items-center justify-center overflow-y-auto px-4 mb-0 scrollbar-autohide">
+      <div className="relative w-200 z-10 flex-1 flex items-center justify-center overflow-y-auto mb-0 scrollbar-autohide">
         {messages.length === 0 ? (
           <div className="text-center animate-fade-in-down">
             <h1 className="text-7xl md:text-8xl font-bold mb-2">👋</h1>

@@ -3,7 +3,7 @@ import { Skills } from "../../data/skills";
 
 export const skills = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 animate-fade-in-up">
+    <div className="w-full max-w-4xl mx-auto py-4 animate-fade-in-up">
       {/* Header */}
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8">
         Skills & Expertise

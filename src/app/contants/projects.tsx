@@ -11,7 +11,7 @@ export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
   const allProjects = Projects;
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 animate-fade-in-up">
+    <div className="w-full max-w-6xl mx-auto py-4 animate-fade-in-up">
       {/* Header */}
       <div className="mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
