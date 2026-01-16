@@ -14,7 +14,7 @@
     "fresh": "npm run clean:all && npm install"
   },
   "dependencies": {
-    "next": "15.3.1",
+    "next": "15.3.8",
     "openai": "^6.15.0",
     "postcss": "^8.5.6",
     "react": "^19.0.0",
