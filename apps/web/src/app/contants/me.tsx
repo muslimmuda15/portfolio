@@ -4,7 +4,7 @@ import { PROFILE } from "../../data/profile";
 
 export const me = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 md:p-8 animate-fade-in-up">
+    <div className="w-full max-w-4xl mx-auto p-4 animate-fade-in-up">
       {/* Header Section with Photo and Intro */}
       <div className="flex flex-col md:flex-row gap-8 items-start">
         {/* Profile Photo */}

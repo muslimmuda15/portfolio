@@ -1,9 +1,10 @@
 import React from "react";
 import { ContactInfo, SOCIAL_LINKS, AVAILABILITY } from "../../data/contacts";
+import Image from "next/image";
 
 export const contacts = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 md:p-8 animate-fade-in-up">
+    <div className="w-full max-w-4xl mx-auto p-4 animate-fade-in-up">
       {/* Header */}
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -62,7 +63,15 @@ export const contacts = () => {
               )}
 
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 text-4xl">{contact.icon}</div>
+                <div className="flex-shrink-0 w-12 h-12 relative">
+                  <Image
+                    src={contact.icon}
+                    alt={contact.label}
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-contain"
+                  />
+                </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">
                     {contact.label}
@@ -107,7 +116,15 @@ export const contacts = () => {
               rel="noopener noreferrer"
               className={`group flex items-center gap-4 p-5 rounded-xl text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl ${social.color}`}
             >
-              <div className="text-3xl">{social.icon}</div>
+              <div className="w-10 h-10 relative flex-shrink-0">
+                <Image
+                  src={social.icon}
+                  alt={social.platform}
+                  width={40}
+                  height={40}
+                  className="rounded-lg object-contain"
+                />
+              </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold text-white mb-0.5">
                   {social.platform}

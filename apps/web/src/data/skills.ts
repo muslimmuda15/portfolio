@@ -25,19 +25,18 @@ export const Skills: SkillCategory[] = [
   {
     title: "Backend & Systems",
     icon: "⚙️",
-    skills: [
-      "Node.js",
-      "PostgreSQL",
-      "Prisma",
-      "Git",
-      "GitHub",
-      "Python",
-      "Docker",
-    ],
+    skills: ["Node.js", "PostgreSQL", "Prisma", "Git", "GitHub", "Python"],
   },
   {
     title: "AI & Fullstack Engineering",
     icon: "🤖",
-    skills: ["AI Agents", "Prisma", "Next.js"],
+    skills: [
+      "AI Agents",
+      "LlamaIndex",
+      "Prisma",
+      "Next.js",
+      "Python",
+      "Docker",
+    ],
   },
 ];

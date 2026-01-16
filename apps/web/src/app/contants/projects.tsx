@@ -1,13 +1,17 @@
 import React from "react";
 import NextImage from "next/image";
-import { Projects, getFeaturedProjects } from "../../data/projects";
+import { Projects, getFeaturedProjects, Project } from "../../data/projects";
 
-export const projects = () => {
+interface ProjectsProps {
+  onProjectClick?: (project: Project) => void;
+}
+
+export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
   const featuredProjects = getFeaturedProjects();
   const allProjects = Projects;
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 md:p-8 animate-fade-in-up">
+    <div className="w-full max-w-6xl mx-auto p-4 animate-fade-in-up">
       {/* Header */}
       <div className="mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -31,7 +35,8 @@ export const projects = () => {
             {featuredProjects.map((project, index) => (
               <div
                 key={index}
-                className="group relative bg-white dark:bg-white/5 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20"
+                onClick={() => onProjectClick?.(project)}
+                className="group relative bg-white dark:bg-white/5 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 cursor-pointer"
               >
                 {/* Project Image */}
                 <div className="relative h-56 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10 overflow-hidden">
@@ -55,16 +60,20 @@ export const projects = () => {
                   </div>
                 </div>
 
+                {/* Year Badge - Top Right */}
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 bg-white/90 dark:bg-black/50 backdrop-blur-sm rounded-full text-sm text-gray-700 dark:text-gray-200 font-medium">
+                    {project.year}
+                  </span>
+                </div>
+
                 {/* Content */}
                 <div className="p-6 space-y-4">
-                  {/* Title & Year */}
-                  <div className="flex items-start justify-between gap-4">
+                  {/* Title */}
+                  <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">
-                      {project.year}
-                    </span>
                   </div>
 
                   {/* Description */}
@@ -130,7 +139,8 @@ export const projects = () => {
           {allProjects.map((project, index) => (
             <div
               key={index}
-              className="group bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:-translate-y-1"
+              onClick={() => onProjectClick?.(project)}
+              className="group bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:-translate-y-1 cursor-pointer"
             >
               {/* Compact Image */}
               <div className="relative h-40 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10">
@@ -144,17 +154,19 @@ export const projects = () => {
                     {project.category}
                   </span>
                 </div>
+                <div className="absolute top-3 right-3">
+                  <span className="px-2 py-1 bg-white/90 dark:bg-black/50 backdrop-blur-sm rounded-md text-xs font-semibold text-gray-700 dark:text-gray-200">
+                    {project.year}
+                  </span>
+                </div>
               </div>
 
               {/* Content */}
               <div className="p-5 space-y-3">
-                <div className="flex items-start justify-between gap-2">
+                <div>
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
                     {project.title}
                   </h3>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">
-                    {project.year}
-                  </span>
                 </div>
 
                 <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-2">
@@ -224,7 +236,7 @@ export const projects = () => {
 };
 
 // Helper function to get category icon
-function getCategoryIcon(category: string): string {
+export function getCategoryIcon(category: string): string {
   const icons: Record<string, string> = {
     web: "🌐",
     mobile: "📱",
@@ -236,7 +248,7 @@ function getCategoryIcon(category: string): string {
 }
 
 // Helper function to get status color
-function getStatusColor(status: string): string {
+export function getStatusColor(status: string): string {
   const colors: Record<string, string> = {
     completed:
       "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",

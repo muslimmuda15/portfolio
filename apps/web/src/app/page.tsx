@@ -7,6 +7,10 @@ import { me as Me } from "@/app/contants/me";
 import { skills as Skills } from "@/app/contants/skills";
 import { projects as Projects } from "@/app/contants/projects";
 import { contacts as Contacts } from "@/app/contants/contacts";
+import { navigationButtons } from "@/app/contants/navigation";
+import { Project } from "@/data/projects";
+import ProjectDialog from "@/app/components/ProjectDialog";
+import StreamingText from "@/app/components/StreamingText";
 
 interface Message {
   role: "user" | "assistant";
@@ -29,6 +33,14 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Input focus state for animation
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  // Project Dialog state
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,6 +50,37 @@ export default function Home() {
     console.log("Message :", messages);
     scrollToBottom();
   }, [messages]);
+
+  // Handle ESC key and body scroll lock for dialog
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isDialogOpen) {
+        closeDialog();
+      }
+    };
+
+    if (isDialogOpen) {
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [isDialogOpen]);
+
+  const openDialog = (project: Project) => {
+    setSelectedProject(project);
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+    setTimeout(() => setSelectedProject(null), 300); // Wait for animation
+  };
 
   const sendMessage = async (messageContent: string, section: Section) => {
     if (!messageContent.trim() || isLoading) return;
@@ -132,6 +175,8 @@ export default function Home() {
     setInputValue(data);
     setTimeout(() => {
       sendMessage(data.message, data.section as Section);
+      // Refocus the input after navigation
+      inputRef.current?.focus();
     }, 300);
   };
 
@@ -150,6 +195,10 @@ export default function Home() {
 
   const handleSubmit = async () => {
     await sendMessage(inputValue.message, inputValue.section as Section);
+    // Refocus the input after submission
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
   };
 
   // useEffect(() => {
@@ -158,17 +207,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-between relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-[#1a1a1a] dark:to-[#2d2d2d]">
-      {/* Soft gradient background blobs */}
-      {/* <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-pulse-slow" />
-      <div
-        className="absolute top-0 right-0 w-96 h-96 bg-cyan-300/20 rounded-full blur-3xl animate-pulse-slow"
-        style={{ animationDelay: "1s" }}
-      />
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-pink-300/20 rounded-full blur-3xl animate-pulse-slow"
-        style={{ animationDelay: "2s" }}
-      /> */}
-
       {/* Dark Mode Toggle & Profile Photo - Top Right Corner */}
       <div className="absolute top-8 right-8 z-20 flex items-center gap-4">
         {/* Dark Mode Toggle Button */}
@@ -231,7 +269,7 @@ export default function Home() {
         {messages.length === 0 ? (
           <div className="text-center animate-fade-in-down">
             <h1 className="text-7xl md:text-8xl font-bold mb-2">👋</h1>
-            <p className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300">
+            <p className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-100">
               Hello!
             </p>
           </div>
@@ -242,18 +280,18 @@ export default function Home() {
                 key={index}
                 className={`flex ${
                   message.role === "user" ? "justify-end" : "justify-start"
-                } animate-fade-in-up`}
+                }`}
               >
                 <div
                   className={`${
                     message.role === "assistant" && message.section !== "prompt"
                       ? "max-w-full"
                       : "max-w-[80%]"
-                  } rounded-2xl px-6 py-4 ${
+                  } ${
                     message.role === "user"
-                      ? "bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-cyan-400 text-white"
-                      : "bg-white dark:bg-white/10 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10"
-                  } shadow-lg`}
+                      ? "rounded-2xl px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-cyan-400 text-white shadow-lg"
+                      : "text-gray-900 dark:text-white"
+                  }`}
                 >
                   {message.role === "assistant" ? (
                     message.section === "me" ? (
@@ -261,13 +299,15 @@ export default function Home() {
                     ) : message.section === "skills" ? (
                       <Skills />
                     ) : message.section === "projects" ? (
-                      <Projects />
+                      <Projects onProjectClick={openDialog} />
                     ) : message.section === "contacts" ? (
                       <Contacts />
                     ) : (
-                      <p className="text-sm md:text-base whitespace-pre-wrap">
-                        {message.content}
-                      </p>
+                      <StreamingText
+                        text={message.content}
+                        className="text-sm md:text-base whitespace-pre-wrap px-4"
+                        onUpdate={scrollToBottom}
+                      />
                     )
                   ) : (
                     <p className="text-sm md:text-base whitespace-pre-wrap">
@@ -314,94 +354,38 @@ export default function Home() {
       {/* Search Input and Navigation buttons at bottom */}
       <div className="relative z-10 w-full max-w-200 flex flex-col items-center gap-4 pb-4">
         {/* Navigation buttons */}
-        <div className="flex gap-3 w-full animate-fade-in-up-delay">
-          <button
-            onClick={() => handleNavigate("me")}
-            className="flex-1 px-4 py-3 text-sm font-medium rounded-2xl bg-white dark:bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-white/10 text-gray-800 dark:text-gray-200 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:bg-blue-50 dark:hover:bg-white/10 active:translate-y-0 flex items-center justify-center gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-5 h-5 text-gray-700 dark:text-gray-300"
+        <div
+          className={`flex gap-2 w-full overflow-hidden transition-all duration-500 ease-in-out ${
+            !isInputFocused ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
+          }`}
+        >
+          {navigationButtons.map((button) => (
+            <button
+              key={button.id}
+              onClick={() => handleNavigate(button.id)}
+              className="flex-1 px-3 py-2.5 text-sm font-medium rounded-lg bg-white dark:bg-white/5 backdrop-blur-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-400/30 active:scale-95 flex items-center justify-center gap-1.5"
             >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            Me
-          </button>
-
-          <button
-            onClick={() => handleNavigate("projects")}
-            className="flex-1 px-4 py-3 text-sm font-medium rounded-2xl bg-white dark:bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-white/10 text-gray-800 dark:text-gray-200 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:bg-blue-50 dark:hover:bg-white/10 active:translate-y-0 flex items-center justify-center gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-5 h-5 text-gray-700 dark:text-gray-300"
-            >
-              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-            </svg>
-            Projects
-          </button>
-
-          <button
-            onClick={() => handleNavigate("skills")}
-            className="flex-1 px-4 py-3 text-sm font-medium rounded-2xl bg-white dark:bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-white/10 text-gray-800 dark:text-gray-200 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:bg-blue-50 dark:hover:bg-white/10 active:translate-y-0 flex items-center justify-center gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-5 h-5 text-gray-700 dark:text-gray-300"
-            >
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
-            Skills
-          </button>
-
-          <button
-            onClick={() => handleNavigate("contact")}
-            className="flex-1 px-4 py-3 text-sm font-medium rounded-2xl bg-white dark:bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-white/10 text-gray-800 dark:text-gray-200 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:bg-blue-50 dark:hover:bg-white/10 active:translate-y-0 flex items-center justify-center gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-5 h-5 text-gray-700 dark:text-gray-300"
-            >
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
-            </svg>
-            Contact
-          </button>
+              <span className="text-base">{button.icon}</span>
+              <span className="text-xs font-medium">{button.label}</span>
+            </button>
+          ))}
         </div>
 
         {/* Search Input with Send Button */}
-        <div className="relative w-full animate-fade-in-up">
+        <div
+          className={`relative animate-fade-in-up transition-all duration-500 ease-in-out ${
+            isInputFocused ? "w-full" : "w-[60%]"
+          }`}
+        >
           <input
+            ref={inputRef}
             type="text"
             placeholder="Ask me anything..."
             value={inputValue.message}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
             disabled={isLoading}
             className="w-full px-6 py-4 pr-14 text-base bg-white dark:bg-white/5 backdrop-blur-sm rounded-full border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 shadow-lg transition-all duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
             autoComplete="off"
@@ -427,6 +411,20 @@ export default function Home() {
           </button>
         </div>
       </div>
+
+      {/* Project Modal */}
+      {isDialogOpen && selectedProject && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in"
+          onClick={closeDialog}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
+          {/* Dialog Content */}
+          <ProjectDialog project={selectedProject} onClose={closeDialog} />
+        </div>
+      )}
     </div>
   );
 }
