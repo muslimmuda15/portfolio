@@ -39,8 +39,8 @@ export const skills = () => {
       {/* Footer Text */}
       <div className="mt-12 space-y-4 text-gray-600 dark:text-gray-300 border-t border-gray-200 dark:border-gray-800 pt-8">
         <p className="text-base leading-relaxed">
-          You can check out all my skills above! I've got a mix of skills like
-          coding in various languages. I'm all about that balance! 💪
+          You can check out all my skills above! I&apos;ve got a mix of skills
+          like coding in various languages. I&apos;m all about that balance! 💪
         </p>
         <p className="text-base leading-relaxed">
           What skills are you looking to develop or improve?

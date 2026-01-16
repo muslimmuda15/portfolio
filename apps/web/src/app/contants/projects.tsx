@@ -1,5 +1,5 @@
 import React from "react";
-import NextImage from "next/image";
+
 import { Projects, getFeaturedProjects, Project } from "../../data/projects";
 
 interface ProjectsProps {
@@ -18,9 +18,9 @@ export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
           Projects & Work
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl">
-          Here are some of the projects I've built over the years. From mobile
-          apps to web platforms, each project represents a unique challenge and
-          learning experience. 🚀
+          Here are some of the projects I&apos;ve built over the years. From
+          mobile apps to web platforms, each project represents a unique
+          challenge and learning experience. 🚀
         </p>
       </div>
 
@@ -227,8 +227,8 @@ export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
           something valuable! 💡
         </p>
         <p className="text-base leading-relaxed">
-          Want to collaborate on a project or have an idea you'd like to
-          discuss? Let's chat!
+          Want to collaborate on a project or have an idea you&apos;d like to
+          discuss? Let&apos;s chat!
         </p>
       </div>
     </div>

@@ -8,11 +8,11 @@ export const contacts = () => {
       {/* Header */}
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Let's Connect! 🤝
+          Let&apos;s Connect! 🤝
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          I'm always excited to collaborate on interesting projects or just have
-          a chat about tech. Feel free to reach out through any of these
+          I&apos;m always excited to collaborate on interesting projects or just
+          have a chat about tech. Feel free to reach out through any of these
           channels!
         </p>
       </div>
@@ -158,7 +158,8 @@ export const contacts = () => {
         </h2>
         <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
           Whether you have a question, want to collaborate, or just want to say
-          hi, I'd love to hear from you. Let's build something amazing together!
+          hi, I&apos;d love to hear from you. Let&apos;s build something amazing
+          together!
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
@@ -183,8 +184,8 @@ export const contacts = () => {
       {/* Footer Note */}
       <div className="mt-12 text-center space-y-4 text-gray-600 dark:text-gray-300 border-t border-gray-200 dark:border-gray-800 pt-8">
         <p className="text-base leading-relaxed">
-          I'm based in Surabaya, Indonesia 🇮🇩 but I work with clients and teams
-          from all around the world! 🌍
+          I&apos;m based in Surabaya, Indonesia 🇮🇩 but I work with clients and
+          teams from all around the world! 🌍
         </p>
         <p className="text-base leading-relaxed">
           Looking forward to connecting with you! 😊
