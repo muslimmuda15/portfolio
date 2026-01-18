@@ -5,7 +5,7 @@ export interface Project {
   technologies: string[];
   image: string;
   liveUrl?: string;
-  githubUrl?: string;
+  url?: string;
   category: "web" | "mobile" | "fullstack" | "ai" | "desktop" | "other";
   featured?: boolean;
   year: number;
@@ -31,8 +31,8 @@ export const Projects: Project[] = [
       "Prisma",
       "PostgreSQL",
     ],
-    image: "/projects/smart-autoclicker.jpg",
-    githubUrl: "",
+    image: "/projects/smart-autoclicker.png",
+    url: "",
     category: "fullstack",
     featured: true,
     year: 2025,
@@ -52,9 +52,9 @@ export const Projects: Project[] = [
       "LlamaIndex",
       "AI LLM Integration",
     ],
-    image: "/projects/ai-education.jpg",
+    image: "/projects/ai-education.png",
     liveUrl: "",
-    githubUrl: "",
+    url: "",
     category: "web",
     featured: true,
     year: 2025,
@@ -66,7 +66,7 @@ export const Projects: Project[] = [
     description:
       "Enterprise HR platform with web admin dashboard and iOS mobile app for real-time attendance tracking and employee management.",
     longDescription:
-      "Comprehensive HR management ecosystem consisting of a Next.js web admin platform and React Native iOS mobile app. Web platform features include bulk scheduling, leave management, payroll processing, content publishing, and organization management with role-based access control. Mobile app provides real-time GPS-based attendance tracking, offline support with WatermelonDB, push notifications via Firebase, and employee self-service features. Developed both web and mobile applications with GraphQL API integration and multi-environment deployment (Local, UAT, Production).",
+      "Comprehensive HR management ecosystem consisting of a Next.js web admin platform and React Native iOS mobile app. Web platform features include bulk scheduling, leave management, payroll processing, content publishing, and organization management with role-based access control. Mobile app provides real-time GPS-based attendance tracking, offline support, push notifications via Firebase, and employee self-service features. Developed both web and mobile applications with GraphQL API integration.",
     technologies: [
       "Next.js",
       "React Native",
@@ -80,8 +80,8 @@ export const Projects: Project[] = [
       "Firebase",
       "WatermelonDB",
     ],
-    image: "/projects/atendi-webadmin.jpg",
-    githubUrl: "",
+    image: "/projects/splendid.png",
+    url: "",
     category: "web",
     featured: true,
     year: 2025,
@@ -91,7 +91,7 @@ export const Projects: Project[] = [
   {
     title: "Restaurant Ordering System",
     description:
-      "Complete restaurant ordering ecosystem with customer mobile apps (Android & iOS), waiter management app, and admin dashboard.",
+      "Complete restaurant ordering ecosystem with customer mobile apps (Android & iOS), waiter management app, and web admin.",
     longDescription:
       "Comprehensive restaurant ordering and management platform consisting of four applications: Native Android customer app (Kotlin) with QR code ordering, menu browsing, and real-time order tracking; React Native iOS customer app with Apple/Facebook authentication and Google Maps integration; Android waiter app for order management and table service; and React admin dashboard with Material-UI for restaurant operations, menu management, order analytics, and multi-environment deployment. Features include Firebase push notifications, Room ORM for offline support, WatermelonDB for local data persistence, and GraphQL API integration across all platforms.",
     technologies: [
@@ -106,8 +106,8 @@ export const Projects: Project[] = [
       "SQLite",
       "WatermelonDB",
     ],
-    image: "/projects/ecommerce-app.jpg",
-    githubUrl: "",
+    image: "/projects/restaurant.png",
+    url: "",
     category: "fullstack",
     featured: true,
     year: 2019,
@@ -121,8 +121,8 @@ export const Projects: Project[] = [
     longDescription:
       "Professional document scanning application built with Kotlin for Android. Features include auto cropping in document from camera using auto edge detection with OpenCV, get document by QR code, auto cropping in document from image gallery, export or save into PDF, text recognition using OCR, image compression, customize image editing (crop, rotate, filters, brightness/contrast adjustment), Firebase Crashlytics for error tracking, AdMob integration for monetization, and in-app purchases for premium features.",
     technologies: ["Kotlin", "Android", "OpenCV", "OCR", "SQLite"],
-    image: "/projects/weather-app.jpg",
-    githubUrl: "",
+    image: "/projects/document-scanner.png",
+    url: "",
     category: "mobile",
     featured: false,
     year: 2021,
@@ -134,7 +134,7 @@ export const Projects: Project[] = [
     description:
       "Web-based logistics management system for shipping operations, vessel tracking, and cargo management with comprehensive admin features.",
     longDescription:
-      "Enterprise logistics management platform built with Next.js for managing shipping operations and cargo logistics. Features include vessel tracking and management, shipping company administration, port management, combined shipment handling, merchant and corporate account management, quote generation and tracking, payment processing, product catalog management, document verification workflows, and real-time notifications. Includes role-based access control (RBAC), multi-environment deployment (local, dev, staging, production), GraphQL API integration with Apollo Client, interactive maps with React Map GL, and comprehensive admin dashboard with Material-UI components.",
+      "Enterprise logistics management platform built with Next.js for managing shipping operations and cargo logistics. Features include vessel tracking and management, shipping company administration, port management, combined shipment handling, merchant and corporate account management, quote generation and tracking, payment processing, product catalog management, document verification workflows, and real-time notifications. Includes role-based access control (RBAC), GraphQL API integration with Apollo Client, and comprehensive admin dashboard.",
     technologies: [
       "Next.js",
       "React",
@@ -143,10 +143,10 @@ export const Projects: Project[] = [
       "Apollo Graphql",
       "Material-UI",
     ],
-    image: "/projects/task-dashboard.jpg",
-    githubUrl: "",
+    image: "/projects/trampil.png",
+    url: "https://trampil.net/",
     category: "web",
-    featured: true,
+    featured: false,
     year: 2021,
     status: "completed",
     at: "Garasilabs",
@@ -156,10 +156,10 @@ export const Projects: Project[] = [
     description:
       "Web-based travel booking platform for sightseeing tours with integrated payment processing and tour management.",
     longDescription:
-      "Travel and tour booking web application built with Node.js and Express for UOB Travel services. Features include tour browsing and search, detailed tour information and itineraries, booking management system, integrated payment processing, session-based user authentication, multi-environment deployment (local, staging, production), API integration with Tocco sightseeing services, error monitoring with Slack notifications, and responsive EJS templating. Includes custom validators for booking data and comprehensive error handling.",
+      "Travel and tour booking web application. Features include tour browsing and search, detailed tour information and itineraries, booking management system, integrated payment processing, API integration with third party sightseeing services, and responsive EJS templating. Includes custom validators for booking data and comprehensive error handling.",
     technologies: ["Node.js", "Express", "JavaScript", "REST API"],
-    image: "/projects/weather-app.jpg",
-    githubUrl: "",
+    image: "/projects/sightseeing.png",
+    url: "",
     category: "web",
     featured: false,
     year: 2017,
@@ -173,7 +173,7 @@ export const Projects: Project[] = [
     longDescription:
       "A comprehensive internal desktop application developed for Angkasa Mulya Trading to streamline their core business processes. The system handles end-to-end operations including inventory management, sales processing, purchasing, and procurement. built using C# with DevExpress framework for a robust and user-friendly interface, backed by SQL Server for reliable data management. The development process utilized SVN for version control to ensure efficient collaboration and code management.",
     technologies: ["C#", "DevExpress", "SQL Server", "SVN"],
-    image: "/projects/desktop-app.jpg",
+    image: "/projects/yanmar.png",
     category: "desktop",
     featured: false,
     year: 2016,

@@ -1,5 +1,6 @@
 import { Project } from "@/data/projects";
 import { getCategoryIcon, getStatusColor } from "@/app/contants/projects";
+import Image from "next/image";
 
 interface ProjectDialogProps {
   project: Project;
@@ -37,12 +38,21 @@ export default function ProjectDialog({
       </button>
 
       {/* Header with Image */}
-      <div className="relative h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-8xl opacity-30">
-            {getCategoryIcon(project.category)}
+      <div className="relative h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10 overflow-hidden">
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-8xl opacity-30">
+              {getCategoryIcon(project.category)}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Badges */}
         <div className="absolute top-4 left-4 flex gap-2">
@@ -103,7 +113,7 @@ export default function ProjectDialog({
         </div>
 
         {/* Links */}
-        {(project.liveUrl || project.githubUrl) && (
+        {(project.liveUrl || project.url) && (
           <div className="flex gap-4 pt-4">
             {project.liveUrl && (
               <a
@@ -117,16 +127,16 @@ export default function ProjectDialog({
                 View Live Demo
               </a>
             )}
-            {project.githubUrl && (
+            {project.url && (
               <a
-                href={project.githubUrl}
+                href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-900 dark:bg-white/10 dark:hover:bg-white/20 text-white rounded-lg font-medium transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
                 <span>💻</span>
-                View on GitHub
+                Preview
               </a>
             )}
           </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 import { Projects, getFeaturedProjects, Project } from "../../data/projects";
 
@@ -40,13 +41,22 @@ export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
               >
                 {/* Project Image */}
                 <div className="relative h-56 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-6xl opacity-30">
-                      {getCategoryIcon(project.category)}
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-6xl opacity-30">
+                        {getCategoryIcon(project.category)}
+                      </div>
                     </div>
-                  </div>
+                  )}
                   {/* Status Badge */}
-                  <div className="absolute top-4 right-4">
+                  <div className="absolute top-4 right-4 z-10">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
                         project.status
@@ -111,9 +121,9 @@ export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
                         Live Demo
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {project.url && (
                       <a
-                        href={project.githubUrl}
+                        href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 px-4 py-2 bg-gray-800 hover:bg-gray-900 dark:bg-white/10 dark:hover:bg-white/20 text-white rounded-lg text-sm font-medium transition-colors"
@@ -143,18 +153,27 @@ export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
               className="group bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:-translate-y-1 cursor-pointer"
             >
               {/* Compact Image */}
-              <div className="relative h-40 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-5xl opacity-30">
-                    {getCategoryIcon(project.category)}
+              <div className="relative h-40 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10 overflow-hidden">
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-5xl opacity-30">
+                      {getCategoryIcon(project.category)}
+                    </div>
                   </div>
-                </div>
-                <div className="absolute top-3 left-3">
+                )}
+                <div className="absolute top-3 left-3 z-10">
                   <span className="px-2 py-1 bg-white/90 dark:bg-black/50 backdrop-blur-sm rounded-md text-xs font-semibold text-gray-700 dark:text-gray-200">
                     {project.category}
                   </span>
                 </div>
-                <div className="absolute top-3 right-3">
+                <div className="absolute top-3 right-3 z-10">
                   <span className="px-2 py-1 bg-white/90 dark:bg-black/50 backdrop-blur-sm rounded-md text-xs font-semibold text-gray-700 dark:text-gray-200">
                     {project.year}
                   </span>
@@ -202,14 +221,14 @@ export const projects = ({ onProjectClick }: ProjectsProps = {}) => {
                       Live
                     </a>
                   )}
-                  {project.githubUrl && (
+                  {project.url && (
                     <a
-                      href={project.githubUrl}
+                      href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 text-center px-3 py-1.5 bg-gray-800 hover:bg-gray-900 dark:bg-white/10 dark:hover:bg-white/20 text-white rounded-lg text-xs font-medium transition-colors"
                     >
-                      Code
+                      Link
                     </a>
                   )}
                 </div>
