@@ -242,6 +242,7 @@ export function getCategoryIcon(category: string): string {
     mobile: "📱",
     fullstack: "⚡",
     ai: "🤖",
+    desktop: "🖥️",
     other: "💻",
   };
   return icons[category] || "💻";

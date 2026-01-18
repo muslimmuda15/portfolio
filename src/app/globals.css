@@ -76,23 +76,26 @@ body {
 }
 
 /* Autohide Scrollbar */
+/* Autohide Scrollbar */
 .scrollbar-autohide::-webkit-scrollbar-thumb {
   background: transparent;
+  transition: background 0.3s;
 }
 
-.scrollbar-autohide:hover::-webkit-scrollbar-thumb {
+.scrollbar-autohide.is-scrolling::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
 }
 
-.scrollbar-autohide:hover::-webkit-scrollbar-thumb:hover {
+.scrollbar-autohide.is-scrolling:hover::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover);
 }
 
 .scrollbar-autohide {
   scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s;
 }
 
-.scrollbar-autohide:hover {
+.scrollbar-autohide.is-scrolling {
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 

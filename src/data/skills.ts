@@ -14,6 +14,7 @@ export const Skills: SkillCategory[] = [
       "React Native",
       "Android",
       "Next.js",
+      "Apollo Graphql",
       "JavaScript/TypeScript",
       "Tailwind CSS",
       "Material UI",

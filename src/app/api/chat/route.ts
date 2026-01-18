@@ -49,7 +49,12 @@ export async function POST(request: NextRequest) {
       const messages = [
         {
           role: "system",
-          content: `You are a helpful AI assistant for ${PROFILE.name}'s portfolio website. You have access to tools to get profile information and the current time. Always use the get_profile tool to answer questions about the owner.`,
+          content: `
+            You are a helpful AI assistant for ${PROFILE.name}'s portfolio website. 
+            You have access to tools to get profile information, skill, experience, project, contact and the current time. 
+            Always use the get_profile tool to answer questions about the owner.
+            You can always answer any question
+          `,
         },
         {
           role: "user",

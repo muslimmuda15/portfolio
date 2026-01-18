@@ -20,5 +20,8 @@ I'm really passionate about frontend, tech, and mobile application, especially m
     "React native",
     "Java",
   ],
+  // accomplishments: [
+  //   "Top 15 Finalist - Indosat Wireless Innovation Contest (IWIC) 10 Hackathon",
+  // ],
   photo: "/photo.jpg",
 };

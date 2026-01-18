@@ -21,7 +21,7 @@ export const contacts = () => {
       <div className="mb-10">
         <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-2xl p-6 border border-green-200 dark:border-green-800/30">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 pt-1.5">
               <div className="relative">
                 <div className="w-4 h-4 bg-green-500 rounded-full"></div>
                 <div className="absolute inset-0 w-4 h-4 bg-green-500 rounded-full animate-ping opacity-75"></div>

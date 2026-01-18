@@ -58,6 +58,26 @@ export const me = () => {
       <div className="mt-8 md:mt-12 space-y-6 text-lg text-gray-600 dark:text-gray-300 leading-relaxed border-t border-gray-200 dark:border-gray-800 padding-t-8 pt-8">
         <p className="whitespace-pre-line">{PROFILE.bio}</p>
       </div>
+
+      {/* Accomplishments Section */}
+      {/* {PROFILE.accomplishments && PROFILE.accomplishments.length > 0 && (
+        <div className="mt-8 space-y-4 border-t border-gray-200 dark:border-gray-800 pt-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Accomplishments
+          </h2>
+          <ul className="space-y-3">
+            {PROFILE.accomplishments.map((item, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-3 text-gray-600 dark:text-gray-300"
+              >
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )} */}
     </div>
   );
 };

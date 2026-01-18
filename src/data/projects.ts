@@ -6,19 +6,20 @@ export interface Project {
   image: string;
   liveUrl?: string;
   githubUrl?: string;
-  category: "web" | "mobile" | "fullstack" | "ai" | "other";
+  category: "web" | "mobile" | "fullstack" | "ai" | "desktop" | "other";
   featured?: boolean;
   year: number;
   status: "completed" | "in-progress" | "archived";
+  at: string;
 }
 
 export const Projects: Project[] = [
   {
     title: "Smart AutoClicker",
     description:
-      "Forked open-source Android auto-clicker, customized the app, and built a web admin panel for integration and management.",
+      "Customizing the open source auto clicker app, and built a web admin panel for integration, configuration, and management.",
     longDescription:
-      "A freelance project for personal use that involved pulling an open-source Android auto-clicker application, modifying and customizing the Android app to meet specific requirements, and developing a comprehensive web admin system for integration, configuration, and management of the auto-clicker features.",
+      "A project for personal use that involved customizing an open-source auto-clicker application, modifying and customizing the Android app to meet specific requirements, and developing a comprehensive web admin system for integration, configuration, and management of the auto-clicker features.",
     technologies: [
       "Kotlin",
       "Android",
@@ -36,6 +37,7 @@ export const Projects: Project[] = [
     featured: true,
     year: 2025,
     status: "completed",
+    at: "Freelance",
   },
   {
     title: "AI-Powered Educational Platform",
@@ -53,10 +55,11 @@ export const Projects: Project[] = [
     image: "/projects/ai-education.jpg",
     liveUrl: "",
     githubUrl: "",
-    category: "fullstack",
+    category: "web",
     featured: true,
     year: 2025,
     status: "in-progress",
+    at: "Garasilabs",
   },
   {
     title: "HR Management System",
@@ -79,10 +82,11 @@ export const Projects: Project[] = [
     ],
     image: "/projects/atendi-webadmin.jpg",
     githubUrl: "",
-    category: "fullstack",
+    category: "web",
     featured: true,
     year: 2025,
     status: "completed",
+    at: "Garasilabs",
   },
   {
     title: "Restaurant Ordering System",
@@ -104,17 +108,18 @@ export const Projects: Project[] = [
     ],
     image: "/projects/ecommerce-app.jpg",
     githubUrl: "",
-    category: "mobile",
+    category: "fullstack",
     featured: true,
     year: 2019,
     status: "completed",
+    at: "Garasilabs",
   },
   {
     title: "Document Scanner App",
     description:
       "Native Android document scanning app for creating PDFs from images with OCR, image editing, and cloud storage integration.",
     longDescription:
-      "Professional document scanning application built with Kotlin for Android. Features include camera-based document scanning with auto edge detection using OpenCV, multi-page PDF creation with iText7, OCR text recognition with ML Kit, advanced image editing (crop, rotate, filters, brightness/contrast adjustment), QR code scanning and generation, batch image import from gallery, Room database for local document storage, Firebase Crashlytics for error tracking, AdMob integration for monetization, and in-app purchases for premium features. Includes image compression, Glide for image loading, and RxJava for reactive programming.",
+      "Professional document scanning application built with Kotlin for Android. Features include auto cropping in document from camera using auto edge detection with OpenCV, get document by QR code, auto cropping in document from image gallery, export or save into PDF, text recognition using OCR, image compression, customize image editing (crop, rotate, filters, brightness/contrast adjustment), Firebase Crashlytics for error tracking, AdMob integration for monetization, and in-app purchases for premium features.",
     technologies: ["Kotlin", "Android", "OpenCV", "OCR", "SQLite"],
     image: "/projects/weather-app.jpg",
     githubUrl: "",
@@ -122,6 +127,7 @@ export const Projects: Project[] = [
     featured: false,
     year: 2021,
     status: "completed",
+    at: "Freelancer",
   },
   {
     title: "Trampil - Logistics Management Platform",
@@ -143,6 +149,7 @@ export const Projects: Project[] = [
     featured: true,
     year: 2021,
     status: "completed",
+    at: "Garasilabs",
   },
   {
     title: "Travel Sightseeing Platform",
@@ -157,6 +164,21 @@ export const Projects: Project[] = [
     featured: false,
     year: 2017,
     status: "completed",
+    at: "Garasilabs",
+  },
+  {
+    title: "Angkasa Mulya Trading - Internal System",
+    description:
+      "Internal enterprise application for sales, purchasing, and procurement management.",
+    longDescription:
+      "A comprehensive internal desktop application developed for Angkasa Mulya Trading to streamline their core business processes. The system handles end-to-end operations including inventory management, sales processing, purchasing, and procurement. built using C# with DevExpress framework for a robust and user-friendly interface, backed by SQL Server for reliable data management. The development process utilized SVN for version control to ensure efficient collaboration and code management.",
+    technologies: ["C#", "DevExpress", "SQL Server", "SVN"],
+    image: "/projects/desktop-app.jpg",
+    category: "desktop",
+    featured: false,
+    year: 2016,
+    status: "completed",
+    at: "Angkasa Mulya Trading",
   },
 ];
 

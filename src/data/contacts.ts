@@ -41,14 +41,14 @@ export const ContactInfo: ContactMethod[] = [
     icon: "/icons/contacts/location.png",
     description: "Based in East Java",
   },
-  {
-    type: "website",
-    label: "Website",
-    value: "rachmad-af.web.id",
-    icon: "/icons/contacts/website.png",
-    link: "https://rachmad-af.web.id",
-    description: "My personal portfolio",
-  },
+  // {
+  //   type: "website",
+  //   label: "Website",
+  //   value: "rachmad-af.web.id",
+  //   icon: "/icons/contacts/website.png",
+  //   link: "https://rachmad-af.web.id",
+  //   description: "My personal portfolio",
+  // },
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [
