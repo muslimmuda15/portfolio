@@ -4,6 +4,7 @@ import { chatTools } from "./tools";
 import { Skills } from "@/data/skills";
 import { Projects } from "@/data/projects";
 import { ContactInfo } from "@/data/contacts";
+import { Resume } from "@/data/resume";
 
 // Force Node.js runtime for OpenAI SDK compatibility
 export const runtime = "nodejs";
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
     if (!message || typeof message !== "string") {
       return NextResponse.json(
         { error: "Message is required and must be a string" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -29,7 +30,7 @@ export async function POST(request: NextRequest) {
           error:
             "OpenAI API key not configured. Please set OPEN_ROUTER_API_KEY environment variable.",
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -104,6 +105,9 @@ export async function POST(request: NextRequest) {
             } else if (functionName === "get_contacts") {
               functionResult = JSON.stringify(ContactInfo);
               aiSection = "contacts";
+            } else if (functionName === "get_resume") {
+              functionResult = JSON.stringify(Resume);
+              aiSection = "resume";
             } else if (functionName === "get_current_time") {
               functionResult = new Date().toLocaleString();
             }
@@ -151,14 +155,14 @@ export async function POST(request: NextRequest) {
       if (error.status === 401) {
         return NextResponse.json(
           { error: "Invalid OpenAI API key" },
-          { status: 500 }
+          { status: 500 },
         );
       }
 
       if (error.status === 429) {
         return NextResponse.json(
           { error: "Rate limit exceeded. Please try again later." },
-          { status: 429 }
+          { status: 429 },
         );
       }
     }
@@ -166,7 +170,7 @@ export async function POST(request: NextRequest) {
     // Generic error response
     return NextResponse.json(
       { error: "Failed to generate AI response. Please try again." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

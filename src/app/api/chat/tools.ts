@@ -53,6 +53,18 @@ export const chatTools: ChatCompletionTool[] = [
   {
     type: "function",
     function: {
+      name: "get_resume",
+      description: "Get the user's resume information.",
+      parameters: {
+        type: "object",
+        properties: {},
+        required: [],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "get_current_time",
       description: "Get the current time.",
       parameters: {

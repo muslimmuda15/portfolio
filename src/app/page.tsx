@@ -5,6 +5,7 @@ import { useDarkMode } from "@/components/DarkModeProvider";
 import Image from "next/image";
 import { me as Me } from "@/app/contants/me";
 import { skills as Skills } from "@/app/contants/skills";
+import { resume as Resume } from "@/app/contants/resume";
 import { projects as Projects } from "@/app/contants/projects";
 import { contacts as Contacts } from "@/app/contants/contacts";
 import { navigationButtons } from "@/data/navigation";
@@ -19,7 +20,14 @@ interface Message {
   section: Section;
 }
 
-type Section = "me" | "skills" | "projects" | "ai" | "contacts" | "prompt";
+type Section =
+  | "me"
+  | "skills"
+  | "projects"
+  | "ai"
+  | "contacts"
+  | "resume"
+  | "prompt";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState({
@@ -152,7 +160,7 @@ export default function Home() {
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
       setError(
-        "Failed to connect to AI service. Please make sure OPEN_ROUTER_API_KEY is configured."
+        "Failed to connect to AI service. Please make sure OPEN_ROUTER_API_KEY is configured.",
       );
       console.error("AI Error:", err);
     } finally {
@@ -191,6 +199,12 @@ export default function Home() {
           message:
             "What are your contact information? Give me a list of your contact information.",
           section: "contacts",
+        };
+        break;
+      case "resume":
+        data = {
+          message: "What is your resume? Give me a list of your resume.",
+          section: "resume",
         };
         break;
       default:
@@ -233,7 +247,7 @@ export default function Home() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-between relative overflow-hidden 
+      className={`h-screen flex flex-col items-center justify-between relative overflow-hidden 
       bg-gradient-to-br from-gray-50 to-gray-100 
       dark:bg-gradient-to-br dark:from-[#1a1a1a] dark:to-[#2d2d2d]`}
     >
@@ -304,7 +318,7 @@ export default function Home() {
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className={`relative w-200 z-10 flex-1 flex items-center justify-center 
+        className={`relative w-full z-10 flex-1 flex items-center justify-center 
           overflow-y-auto mb-0 scrollbar-autohide`}
       >
         {messages.length === 0 ? (
@@ -315,7 +329,7 @@ export default function Home() {
             </p>
           </div>
         ) : (
-          <div className="w-full max-w-200 space-y-6 py-6 h-[calc(100vh-12rem)]">
+          <div className="w-full max-w-4xl space-y-6 py-6 h-[calc(100vh-12rem)]">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -346,6 +360,8 @@ export default function Home() {
                       <Projects onProjectClick={openDialog} />
                     ) : message.section === "contacts" ? (
                       <Contacts />
+                    ) : message.section === "resume" ? (
+                      <Resume />
                     ) : (
                       <StreamingText
                         text={message.content}
@@ -396,7 +412,7 @@ export default function Home() {
       </div>
 
       {/* Search Input and Navigation buttons at bottom */}
-      <div className="relative z-10 w-full max-w-200 flex flex-col items-center gap-4 pb-4">
+      <div className="relative z-10 w-full max-w-4xl flex flex-col items-center gap-4 pb-4">
         {/* Navigation buttons */}
         <div
           className={`flex gap-2 w-full overflow-hidden transition-all duration-500 ease-in-out ${
